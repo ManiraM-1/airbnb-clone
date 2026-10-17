@@ -1,15 +1,15 @@
 import type { ComponentType } from "react";
 import type { IconProps } from "./Icon";
-import { CalendarIcon } from "./CalendarIcon";
+import { CalendarCancelIcon } from "./CalendarCancelIcon";
 import { CheckCircleIcon } from "./CheckCircleIcon";
 import { DoorIcon } from "./DoorIcon";
 import { FanIcon } from "./FanIcon";
 import { FirePitIcon } from "./FirePitIcon";
-import { KeyIcon } from "./KeyIcon";
+import { CheckInKeyIcon } from "./CheckInKeyIcon";
 import { MapIcon } from "./MapIcon";
 import { MessageIcon } from "./MessageIcon";
 import { ShieldIcon } from "./ShieldIcon";
-import { SprayIcon } from "./SprayIcon";
+import { SprayBottleIcon } from "./SprayBottleIcon";
 import { TagIcon } from "./TagIcon";
 
 /** Maps the `icon` keys used in data/listing.json to icon components. */
@@ -21,14 +21,14 @@ const registry: Record<string, ComponentType<IconProps>> = {
   snowflake: FanIcon,
   door: DoorIcon,
   // review categories (amenity icons live in amenityIcons.tsx)
-  spray: SprayIcon,
+  spray: SprayBottleIcon,
   "check-circle": CheckCircleIcon,
-  key: KeyIcon,
+  key: CheckInKeyIcon,
   message: MessageIcon,
   map: MapIcon,
   tag: TagIcon,
   // things to know
-  calendar: CalendarIcon,
+  calendar: CalendarCancelIcon,
   shield: ShieldIcon,
 };
 

@@ -253,11 +253,13 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - "Guest favourite" `22/500/31.46`.
 - "This home is a guest favourite based on ratings, reviews and reliability" `15/400/20.25`, max-width 420px, centred.
 - Button "How reviews work" `14/500` underline (no-op).
+- *Measured (ref-full):* "Guest favourite" margin-top 8px, intro 9px, "How reviews work" 13px.
 
 **Category scores** (padding `8px 0 40px`): grid 7 columns (first ≈211px, rest ≈151px).
 - Column 1 "Overall rating" `14/500`: 5 rows (5→1), each grid `8px 1fr`, gap 10px: number `12/400`, bar 4px tall bg `#EBEBEB` radius 2px with fill `#222` (5★ ≈95%, 4★ ≈5%, others 0). Rows gap 3px.
 - Columns 2–7 (each padding `0 24px`, `border-left: 1px solid #DDDDDD`): label `14/500/20.02`, value `18/500/25.74` (margin-top 12px), 32×32 icon below (margin-top 8px).
   - Cleanliness 5.0, Accuracy 5.0, Check-in 5.0, Communication 5.0, Location 4.8, Value 4.8.
+- *Measured (ref-full):* column 1 also has padding `0 24px` (label and bars at x=184–346); bars start 12px below the label. Columns follow `1.4fr repeat(6, 1fr)` ("Communication" takes its min-content ≈154px). Category icons fill their 32px box (spray bottle, round-headed key, bubble with centred tail).
 
 **Topic chips** (padding `4px 0 30px`): flex row, gap 12px, **`overflow-x: auto`, no wrap, hidden scrollbar** (10 chips overflow the 1120px width; scrollWidth 1522).
 - Chip button: 48px tall, radius 16px, padding `13px 18px 13px 14px`, `border: 1px solid #DDDDDD`, bg #fff, gap 8px: 20×20 PNG icon, label `14/500`, count `14/400 #717171`.
@@ -269,6 +271,7 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - Text: margin-top 6px, `15/400/21`, **clamped to 4 lines** (`-webkit-line-clamp: 4`).
 - If text exceeds 4 lines → "Show more" button `15/500` underline below; click expands inline, label → "Show less".
 - Button "Show all 19 reviews": 190×48, same style as "Show all 50 amenities" (no-op).
+- *Measured (ref-full):* "Show more" ink sits 28px below the last text line (margin-top 7px). It appears on the 233- and 700-char reviews but not on those ≤137 chars, even though the 233-char one fits in 4 lines; we show it above 180 chars. The section has 49px (not 48) below "Show all 19 reviews".
 
 ### 7.2 Location (`id="location"`)
 - `h2` "Where you'll be"; "Candolim, Goa, India" `16/400/22.88` margin-top 24px.
@@ -277,14 +280,17 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
   - Top-left: `button aria-label="Search"` 40×40 circle, bg #fff, shadow `0 2px 6px rgba(0,0,0,0.2)`, offset 12px.
   - Top-right: column gap 8px: "Zoom in" / "Zoom out" 40×40, radius 8px, same shadow, offset 12px.
   - Centre: pin 56×56 circle bg `#222`, shadow `0 4px 12px rgba(0,0,0,0.3)`, white house icon.
+  - *Measured (ref-full):* a 1px grid every 90px lies over everything (lines at x=90k; y=90k−1), colour ≈ `rgba(180,178,170,0.25)` (token `--map-grid`). The pin house sits low: walls x 15–42, ground line x 9–47 at y≈51, 3px stroke, square ends.
 - "Exact location will be provided after booking." `14/400` margin-top 18px.
 - "Neighbourhood highlights" `18/500/25.74` margin-top 40px; text `15/400/22.5` margin-top 12px; "Show more" button (same as §5.5).
+- *Measured (ref-full):* that "Show more" has margin-top 18px (4px more than §5.5).
 
 ### 7.3 Meet your host
 - `h2` "Meet your host". Grid `340px 732px`, gap 48px, margin-top 24px.
 - **Host card** 340×260: radius 20px, padding `30px 24px`, `border: 1px solid rgba(0,0,0,0.08)`, shadow `0 6px 16px rgba(0,0,0,0.12)`, grid `1fr 100px`.
   - Left (centred): avatar 88×88 circle + verified badge (28×28 circle bg `#FF385C`, `border: 2px solid #fff`, bottom-right); "Mirashya Homes" `26/500/37.18` (wraps to 2 lines); "Host" `13/400`.
   - Right: `border-left: 1px solid #EBEBEB`, padding-left 20px, 3 stats stacked (each padding `10px 0`, 2nd/3rd have `border-top: 1px solid #EBEBEB`): value `20/500/28.6` ("1,463", "4.68★", "2"), label `12/400/17.16` ("Reviews", "Rating", "Years hosting").
+- *Measured (ref-full):* name margin-top 12px; its two lines' ink is 39px apart (line-height 38px here); "Host" follows with no margin.
 - Below card (margin-top 23px, gap 14px): "Born in the 80s", "Where I went to school: NICMAR GOA", each with 24px icon, `15/400/21.45`.
 - **Right column** 732px:
   - "Co-Hosts" `18/500/25.74`; grid 3 columns, row gap 16px, col gap 8px, margin-top 16px; each: 34×34 avatar (image or letter avatar `13/500`) + name `14/400`, gap 10px. 8 co-hosts.
@@ -303,6 +309,7 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - Header row (32px tall, space-between): `h2` "More stays nearby"; right group (gap 8px): counter "1 / 2" `14/400 #717171`, two 32×32 circle buttons (`border: 1px solid #B0B0B0`, bg #fff, 12px chevrons).
 - Track: margin-top 20px, flex gap 20px, `overflow-x: auto`, `scroll-behavior: smooth`, hidden scrollbar, padding-bottom 4px. 8 cards.
 - Card 208px wide: image 208×208, radius 12px, cover; title `14/500/20.02` margin-top 8px (wraps to 2 lines max); meta `13/400/18.59`: "₹23,600 " + 10px star + " 4.91".
+- *Measured (ref-full):* meta margin-top 3px; ≈9px from price to star, ≈2.5px from star to rating.
 - Arrows: prev disabled at start (opacity 0.3); click next → scrolls track to the end (scrollLeft 684), counter "2 / 2", next becomes disabled (opacity 0.3), prev enabled. Two pages total.
 
 ---

@@ -1,0 +1,147 @@
+/* SPEC §7.2 */
+.location {
+  padding: 48px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.place {
+  margin-top: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.88px;
+}
+
+/* Fake map: no map library */
+.map {
+  position: relative;
+  height: 480px;
+  margin-top: 24px;
+  border-radius: 12px;
+  background: var(--map-bg);
+  overflow: hidden;
+}
+
+.terrain {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, var(--map-park) 0, var(--map-park) 6%, transparent 6%),
+    radial-gradient(circle at 70% 60%, var(--map-park) 0, var(--map-park) 8%, transparent 8%),
+    linear-gradient(115deg, var(--map-water) 0, var(--map-water) 34%, var(--map-land) 34%, var(--map-land) 100%);
+}
+
+/* Measured (ref-full): 1px grid every 90px over water, land and parks,
+   ≈ rgb(180,178,170) at 25% (land #E9F0E4 → #DCE1D6, water #ACD3E6 → #AECBD7) */
+.terrain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, var(--map-grid) 1px, transparent 1px),
+    linear-gradient(to top, var(--map-grid) 1px, transparent 1px);
+  background-size: 90px 90px;
+}
+
+.search,
+.zoomButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--white);
+  box-shadow: var(--shadow-map-button);
+  color: var(--text);
+}
+
+.search {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  border-radius: 50%;
+}
+
+.zoom {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zoomButton {
+  border-radius: 8px;
+}
+
+.pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: var(--shadow-map-pin);
+  color: var(--white);
+}
+
+.note {
+  margin-top: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+}
+
+.subheading {
+  margin-top: 40px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25.74px;
+}
+
+.text {
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22.5px;
+}
+
+.collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+/* Same as the description's "Show more" (SPEC §5.5) */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  /* Measured (ref-full): 4px more than the description toggle */
+  margin-top: 18px;
+  padding: 1px 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  color: var(--text);
+}
+
+.toggleLabel {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.chevron {
+  margin: -2px;
+}

@@ -87,11 +87,11 @@ export function ListingPage({ listing }: ListingPageProps) {
             <BookingSidebar booking={listing.booking} onReserve={handleReserve} />
           </div>
           <div className={styles.bottom}>
-            <Reviews />
-            <Location />
-            <MeetHost />
-            <ThingsToKnow />
-            <MoreStays />
+            <Reviews reviews={listing.reviews} />
+            <Location location={listing.location} />
+            <MeetHost host={listing.host} cohosts={listing.cohosts} />
+            <ThingsToKnow items={listing.thingsToKnow} />
+            <MoreStays stays={listing.moreStays} />
           </div>
         </div>
       </main>

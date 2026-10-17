@@ -1,0 +1,260 @@
+/* SPEC §7.1 */
+.reviews {
+  /* Measured (ref-full): 1px more below the "Show all" button than the SPEC 48px */
+  padding: 48px 0 49px;
+}
+
+/* Header block */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0 40px;
+  text-align: center;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rating {
+  font-size: 100px;
+  font-weight: 500;
+  line-height: 143px;
+  letter-spacing: -3px;
+}
+
+.title {
+  /* Measured (ref-full): ink 8px lower than a flush stack */
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 31.46px;
+}
+
+.intro {
+  margin-top: 9px; /* measured (ref-full) */
+  max-width: 420px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20.25px;
+}
+
+.howLink {
+  margin-top: 13px; /* measured (ref-full) */
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.02px;
+  text-decoration: underline;
+}
+
+/* Category scores: 7 columns, first ≈211px, the rest ≈151px ("Communication" ≈154px) */
+.categories {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(6, 1fr);
+  padding: 8px 0 40px;
+}
+
+.categoryLabel {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.02px;
+  white-space: nowrap;
+}
+
+.overall {
+  /* Measured (ref-full): label and bars start at x=184, bars end at x=346 */
+  padding: 0 24px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 12px; /* measured (ref-full) */
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 8px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.barLabel {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 17.16px;
+}
+
+.track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--divider);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--text);
+}
+
+.category {
+  padding: 0 24px;
+  border-left: 1px solid var(--border);
+}
+
+.categoryScore {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25.74px;
+}
+
+.categoryIcon {
+  margin-top: 8px;
+}
+
+/* Topic chips: one row that scrolls sideways, scrollbar hidden */
+.topics {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0 30px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.topics > li {
+  flex: none;
+}
+
+.chip {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 13px 18px 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  font-size: 14px;
+  line-height: 20.02px;
+  white-space: nowrap;
+}
+
+.chipName {
+  font-weight: 500;
+}
+
+.chipCount {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* Review cards */
+.cards {
+  display: grid;
+  grid-template-columns: 520px 520px;
+  gap: 48px 80px;
+  padding-bottom: 40px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.letterAvatar {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 21.45px;
+}
+
+.tenure {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18.59px;
+  color: var(--text-muted);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18.59px;
+}
+
+.stars {
+  display: flex;
+  gap: 1px;
+}
+
+.text {
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 21px;
+  white-space: pre-line;
+}
+
+.clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+.toggle {
+  margin-top: 7px; /* measured (ref-full): ink 28px below the last text line */
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 21px;
+  text-decoration: underline;
+}
+
+/* Same as "Show all 50 amenities" (SPEC §5.7) */
+.showAll {
+  height: 48px;
+  padding: 13px 23px;
+  background: var(--white);
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--text);
+  transition:
+    background var(--dur-button),
+    transform var(--dur-press);
+}
+
+.showAll:hover {
+  background: var(--bg-subtle);
+}
+
+.showAll:active {
+  transform: scale(0.96);
+}

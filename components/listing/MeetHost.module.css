@@ -1,0 +1,205 @@
+/* SPEC §7.3 */
+.meetHost {
+  padding: 48px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 340px 732px;
+  gap: 48px;
+  margin-top: 24px;
+}
+
+/* Host card */
+.card {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  height: 260px;
+  padding: 30px 24px;
+  border: 1px solid var(--hairline);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.avatarWrap {
+  position: relative;
+}
+
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background: var(--rausch);
+  color: var(--white);
+}
+
+.name {
+  margin-top: 12px; /* measured (ref-full) */
+  font-size: 26px;
+  font-weight: 500;
+  /* Measured (ref-full): the two name lines' ink is 39px apart, which takes 38px here (SPEC: 37.18) */
+  line-height: 38px;
+}
+
+.role {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18.59px;
+}
+
+.stats {
+  padding-left: 20px;
+  border-left: 1px solid var(--divider);
+}
+
+/* Value above label, as in the reference; dt/dd order kept for screen readers */
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+
+.stat + .stat {
+  border-top: 1px solid var(--divider);
+}
+
+.statValue {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28.6px;
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 17.16px;
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 23px;
+}
+
+.fact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 21.45px;
+}
+
+/* Right column */
+.subheading {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25.74px;
+}
+
+.cohosts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 8px;
+  margin-top: 16px;
+}
+
+.cohost {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+}
+
+.cohostAvatar {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.letterAvatar {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.details {
+  margin-top: 30px;
+}
+
+.response {
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.message {
+  height: 48px;
+  margin-top: 18px;
+  padding: 14px 24px;
+  border-radius: 8px;
+  background: var(--bg-hover);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  transition:
+    background var(--dur-button),
+    transform var(--dur-press);
+}
+
+.message:hover {
+  background: var(--bg-pressed);
+}
+
+.message:active {
+  transform: scale(0.96);
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 17.16px;
+  color: var(--text-muted);
+}
+
+.noticeIcon {
+  flex: none;
+}

@@ -29,6 +29,7 @@
   --map-land: #e9f0e4;
   --map-park: #cfe3c8;
   --map-bg: #e8eef0;
+  --map-grid: rgba(180, 178, 170, 0.25); /* measured (ref-full), SPEC §7.2 */
 
   /* Typography */
   --font-family: "Airbnb Cereal VF", Circular, -apple-system, BlinkMacSystemFont, system-ui, Roboto,

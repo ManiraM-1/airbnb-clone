@@ -1,5 +1,5 @@
 // Behaviour of SPEC §5.1–§5.6 (Overview … Where you'll sleep).
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import listing from "../data/listing.json";
 
 test.use({ reducedMotion: "reduce" });
@@ -41,8 +41,12 @@ test("left column is 652px wide and sections stack in SPEC order", async ({ page
   }
 });
 
+// Reviews and Location also have "Show more" buttons; the description's comes first on the page.
+const descriptionToggle = (page: Page, name: string) =>
+  page.getByRole("button", { name, exact: true }).first();
+
 test("Description: Show more / Show less toggles inline with aria-expanded", async ({ page }) => {
-  const toggle = page.getByRole("button", { name: "Show more", exact: true });
+  const toggle = descriptionToggle(page, "Show more");
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   const textId = await toggle.getAttribute("aria-controls");
   expect(textId).toBeTruthy();
@@ -53,7 +57,7 @@ test("Description: Show more / Show less toggles inline with aria-expanded", asy
   expect(collapsedHeight).toBeCloseTo(99.2, 0);
 
   await toggle.click();
-  const less = page.getByRole("button", { name: "Show less", exact: true });
+  const less = descriptionToggle(page, "Show less");
   await expect(less).toHaveAttribute("aria-expanded", "true");
   const expanded = await text.evaluate((el) => ({
     height: el.getBoundingClientRect().height,
@@ -65,17 +69,17 @@ test("Description: Show more / Show less toggles inline with aria-expanded", asy
   expect(expanded.mask).toBe("none");
 
   await less.click();
-  await expect(page.getByRole("button", { name: "Show more", exact: true })).toHaveAttribute("aria-expanded", "false");
+  await expect(descriptionToggle(page, "Show more")).toHaveAttribute("aria-expanded", "false");
   expect(await text.evaluate((el) => el.getBoundingClientRect().height)).toBeCloseTo(collapsedHeight, 0);
 });
 
 test("Description toggle works from the keyboard", async ({ page }) => {
-  const toggle = page.getByRole("button", { name: "Show more", exact: true });
+  const toggle = descriptionToggle(page, "Show more");
   await toggle.focus();
   await page.keyboard.press("Enter");
-  await expect(page.getByRole("button", { name: "Show less", exact: true })).toHaveAttribute("aria-expanded", "true");
+  await expect(descriptionToggle(page, "Show less")).toHaveAttribute("aria-expanded", "true");
   await page.keyboard.press("Space");
-  await expect(page.getByRole("button", { name: "Show more", exact: true })).toHaveAttribute("aria-expanded", "false");
+  await expect(descriptionToggle(page, "Show more")).toHaveAttribute("aria-expanded", "false");
 });
 
 test("Show original is a no-op link", async ({ page }) => {

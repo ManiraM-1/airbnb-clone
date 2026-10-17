@@ -1,0 +1,44 @@
+/* SPEC §7.4 */
+.thingsToKnow {
+  padding: 48px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 352px);
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.title {
+  margin-top: 18px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.88px;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.learnMore {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.02px;
+  text-decoration: underline;
+}
