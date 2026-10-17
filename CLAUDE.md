@@ -64,6 +64,14 @@ One component per file, one CSS module per component, named the same.
   - `visual-qa`: capture our build in the reference states, pixelmatch against `tests/reference/` (whole view or a cropped region) and list differences.
 - Before calling anything finished: `npm run lint`, `npx tsc --noEmit`, `npm run build` all pass.
 
+## Process rules
+These override "How to work" above where they differ.
+- **Done bar:** a section is done when it is visually indistinguishable from the reference at 100% zoom and any remaining diff is explained by photo resampling or sub-pixel line/text rendering.
+- **One comparison pass per batch** of sections, not per section.
+- **At most two fix-and-compare rounds per batch.** After that, list the leftovers and move on.
+- **`visual-qa` subagent only for overlays** (photo tour, viewer, amenities modal). Compare page sections directly with `npm run compare` and `scripts/inspect-png.mjs`.
+- **Don't request extra reference screenshots.** Work from `SPEC.md` and `tests/reference/`.
+
 ## Commands
 - `npm run dev`: local dev server on http://localhost:3000
 - `npm run fetch-assets`: download assets from the reference (blocked by Vercel's checkpoint; kept for reference)
