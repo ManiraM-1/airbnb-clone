@@ -45,3 +45,7 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# visual comparison output
+/tests/__output__/
+/tests/__inspect__/

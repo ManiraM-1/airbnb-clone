@@ -10,6 +10,7 @@ All values below are **measured from the rendered reference**, not copied from i
 > - `f: 16/500/22.88` means font-size 16px, weight 500, line-height 22.88px.
 > - `@x,y w×h` means a page-absolute box at that position (y includes scroll).
 > - Content data (all text, image paths, reviews, amenities) lives in `data/listing.json`. Never hard-code content in components.
+> - **Reference screenshots** (`tests/reference/`) are 1440px-wide layouts with no scrollbar, so page content sits **8px further right** than the x values in this file (container x=160, not 152). Values marked *Measured* below come from those screenshots and are in their coordinates.
 
 ---
 
@@ -138,7 +139,7 @@ Clicking these does nothing (no toast).
 - **Click any hero image** → opens Photo Tour scrolled so that image's **room section** sits at the top of the tour scroller (§8.3).
 - Image order (from `data/listing.json → hero`): 1 `2367476f…`, 2 `090d8b0b…`, 3 `9be71047…`, 4 `67c61c6f…`, 5 `c904e1ab…`.
 
-**"Show all photos" button**: position absolute, bottom 23px / right 23px of the gallery (box @1106,612 143×32). bg #fff, `border: 1px solid #222`, radius 8px, padding `7px 15px`, shadow `0 2px 8px rgba(0,0,0,0.15)`, gap 8px, 15px grid icon + text `12/500/16 #222`. Hover bg `#F7F7F7`. Transition `transform 0.1s, background 0.15s`. Click → opens Photo Tour at top.
+**"Show all photos" button**: position absolute, bottom 23px / right 23px of the gallery (box @1106,612 143×32). bg #fff, `border: 1px solid #222`, radius 8px, padding `7px 15px`, shadow `0 2px 8px rgba(0,0,0,0.15)`, gap 8px, 15px **3×3 dot-grid** icon (filled dots, not squares; verified in ref-top) + text `12/500/16 #222`. Hover bg `#F7F7F7`. Transition `transform 0.1s, background 0.15s`. Click → opens Photo Tour at top.
 
 ---
 
@@ -309,15 +310,19 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 ### 8.2 Header
 - 88px tall, padding `0 32px`, bg #fff, flex space-between, align centre.
 - Left: `button aria-label="Back"` 40×40 circle, 18px chevron-left. Hover bg `#F2F2F2`. Click → close tour.
-- Centre (absolute, horizontally centred): `h2` "Photo tour" `16/500/22.88`.
+  - *Measured (ref-tour-top / ref-tour-bedroom):* thin chevron-left glyph 8×15, centre (42.5, 44), stroke visibly lighter than the viewer's arrow chevrons (≈1.25px; darkest px `#2B2B2B`). No visible bg at rest.
+  - *Inferred:* with `padding 0 32px` the button centre would be x=52, but the glyph centres at x≈42.5, so the Back button sits ≈8px further left (button box ≈ x22–62, e.g. `margin-left: -8px`). The viewer's left button shows the same −8px offset (§9). Confirm with a hover screenshot (bg circle visible).
+- Centre (absolute, horizontally centred): `h2` "Photo tour" `16/500/22.88`. *Measured:* text centred at x=720, y≈44.
 - Right (gap 2px): `button aria-label="Share"` and `aria-label="Save"`, 40×40 circles, 18px icons.
+  - *Measured:* **Share** = open-top tray with an upward arrow out of it (glyph 14×16, centre 1345.5, 43.5). **Save** = outline heart (glyph 18×16, centre 1387.5, 43.5). Centres 42px apart (40 + 2 gap); Save's button right edge ≈1407.5, matching the 32px right padding. Both `#222`, line weight ≈1.5px, no bg at rest.
 
 ### 8.3 Scroll body
 - Below header: a `div` with `overflow-y: auto`, height `calc(100vh - 88px)`. Inner content max-width 1024px, centred, padding `0 24px 96px`.
-- **Category thumbnails** `nav aria-label="Photo categories"`: grid 8 columns × 111.5px, gap 12px (9 items, so "Additional photos" wraps to row 2).
+- **Category thumbnails** `nav aria-label="Photo categories"`: grid 8 columns × 111.5px, gap 12px (9 items, so "Additional photos" wraps to row 2). *Measured (ref-tour-top):* first thumbnail image at x232–342, y88–192 (111×105): the nav starts flush under the header (no top padding).
   - Each `button aria-label="{room}"`, flex column gap 8px: image 112×105 radius 8px cover; label `14/400 #717171` (wraps).
   - Hover: image `transform: scale(1.04); filter: brightness(0.94)`, transition `transform 0.25s cubic-bezier(0.2,0,0,1), filter 0.2s`. (Image needs an overflow-hidden radius-8 wrapper.)
-  - Click → smooth-scroll the tour scroller so that room's section top sits 24px below the header.
+  - Click → smooth-scroll the tour scroller so that room's section top sits 24px below the header. *Verified (ref-tour-bedroom):* Bedroom's first photo top at y≈127.5 → section top 112 = 88 + 24.
+- *Screenshot note:* the tour captures show the browser's own overlay scrollbar thumb (4px wide, `#8B8B8B`, x1436–1439) on the scroller. It is the browser's, not part of the design. Don't style a custom scrollbar, and ignore x≥1432 when diffing tour states.
 - **Room sections** `section id="tour-room-{i}"`, margin-top 40px for the first, padding `16px 0 4px`, grid `458px 458px`, column gap 60px, row gap 20px.
   - Left column: **sticky** (`top: 20px`): room title `32/500/35.2`; features line `16/400/22.4 #717171`, joined with "  ·  " (omit line if no features).
   - Right column: flex column gap 12px of photo rows. Pattern given by `layout` in data, e.g. "12121": `1` = one full-width photo 458×305; `2` = two photos 223×149 side by side (gap 12px).
@@ -340,14 +345,18 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - URL: adds `&modalItem={1000 + index}` (index 0-based across all 43 photos), e.g. 4th photo → `modalItem=1003`. Updates on every navigation.
 
 **Header** (absolute top, 72px, padding `0 24px`):
-- Left: `button aria-label="Show all photos"` 40×40 circle, 18px chevron-left → returns to Photo Tour.
-- Centre (absolute): current room name `16/500/22.88`.
+- Left: `button aria-label="Show all photos"` 40×40 circle, 18px **3×3 dot-grid icon** (same icon as the page's "Show all photos" button, §4), **not a chevron** → returns to Photo Tour.
+  - *Measured (ref-viewer-4):* glyph 15×15, nine filled dots ≈3px on a ≈6px pitch, `#222`, centre (36, 36). No visible bg at rest.
+  - *Inferred:* with `padding 0 24px` the centre would be x=44. At x=36 the button box is ≈ x16–56, i.e. ≈8px further left (same offset as the tour's Back button, §8.2). Confirm with a hover screenshot.
+- Centre (absolute): current room name `16/500/22.88`. *Measured:* centred at x=720, y≈36.
 - Right (gap 12px): counter "4 of 43" `14/400/20.02`; `button aria-label="Close"` 40×40 circle, 18px X → returns to Photo Tour.
+  - *Measured:* counter ink x1320–1362, y30–40. **Close** = thin X glyph 12×13, centre (1395.5, 36), light stroke (≈1.25px; darkest px `#2A2A2A`), so button box ≈ x1376–1416, consistent with the 24px right padding.
 
-**Image area**: full-screen box with padding `88px 96px`; `img` centred, `object-fit: contain`, fills available space (~965×724 at 1440×900).
+**Image area**: full-screen box with padding `88px 96px`; `img` centred, `object-fit: contain`, fills available space. *Measured (ref-viewer-4, landscape photo):* image box x236–1203, y88–813 = **968×726**, centred at (719.5, 450.5).
 - Image changes instantly on navigation (no slide/fade on the img in the reference).
 
 **Arrows**: `button aria-label="Previous"` (left: 20px) and `"Next"` (right: 20px), vertically centred (`top: 50%; transform: translateY(-50%)`), 40×40 circle, bg #fff, `border: 1px solid #222`, 18px chevrons. Hover bg `#F7F7F7`. Transition `background 0.16s, transform 0.08s`.
+- *Measured (ref-viewer-4):* circles at x20–59 and x1380–1419, y431–470 (centre y 450.5). Border 1px (antialiased ring, darkest `#222`). Chevron glyphs 8×15 (prev centre 38.5, next 1401), **heavier stroke (≈2px, solid `#222`) than the header icons**.
 - **No wrap-around**: at photo 1 "Previous" is `disabled` with opacity 0.28; at photo 43 "Next" is disabled likewise.
 
 **Keyboard**: `ArrowLeft` / `ArrowRight` = previous / next (respect the ends). `Escape` → closes viewer back to Photo Tour (tour stays open, its scroll position unchanged).

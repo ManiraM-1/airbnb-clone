@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "fetch-assets": "node scripts/fetch-assets.mjs",
-    "place-assets": "node scripts/place-assets.mjs"
+    "place-assets": "node scripts/place-assets.mjs",
+    "visual": "playwright test tests/visual.spec.ts",
+    "compare": "node scripts/compare-screenshots.mjs"
   },
   "dependencies": {
     "next": "16.4.2",
@@ -18,10 +20,13 @@
   "devDependencies": {
     "@playwright/test": "^1.64.1",
     "@types/node": "^20",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "pixelmatch": "^8.0.0",
+    "pngjs": "^7.0.0",
     "typescript": "^5"
   }
 }

@@ -44,3 +44,20 @@ Answers to your open questions:
 - Before we go further: try opening the reference URL with Playwright (headless and headed). If Vercel's protection blocks it too, tell me. Don't try to get around it. We'll capture reference screenshots manually instead.
 
 Then commit everything with a clear message.
+
+---
+
+### 2026-10-17 04:50:33 UTC · session b473cc7a
+
+<pasted_content id="91d4">
+Playwright can't open the reference (Vercel blocks it), so I captured reference screenshots manually in Chrome at 1440x900, DPR 1. They are in tests/reference/. Windows doubled some extensions, so first rename every *.png.png in that folder to *.png. The files are:
+ref-full.png (full page, 1440x6256), ref-top.png (first viewport), ref-sticky-nav.png (scrollY 1500, sticky nav visible), ref-tour-top.png (photo tour at top), ref-tour-bedroom.png (tour after clicking the Bedroom thumbnail), ref-viewer-4.png (viewer on photo 4 of 43), ref-amenities.png (amenities modal open, page at top).
+
+Then:
+1. Update .claude/agents/visual-qa.md and ui-inspector.md so they never request the reference URL. visual-qa compares our localhost screenshots (same viewport, DPR 1, same states) against these files with pixelmatch, cropping both to the same region when comparing one section. ui-inspector measures from these screenshots plus SPEC.md and asks me for one specific extra screenshot when something can't be determined.
+2. Update the pixel-match skill and CLAUDE.md to match.
+3. Write tests/visual.spec.ts helpers that put our page into each of those 7 states and save screenshots to tests/__output__/ (git-ignored) for comparison.
+4. Correct SPEC.md §9: the viewer's top-left "Show all photos" button uses a 3x3 dot-grid icon, not a chevron. Look at ref-viewer-4.png and ref-tour-top.png and fix any other icon details in §8/§9 that the screenshots contradict.
+5. Add a .gitattributes with "* text=auto eol=lf" and binary rules for images and fonts.
+Commit when done.
+</pasted_content id="91d4">

@@ -1,17 +1,18 @@
 import { Icon, type IconProps } from "./Icon";
 
+/** 3×3 dot grid ("Show all photos"). Filled dots, no stroke. */
 export function GridIcon(props: IconProps) {
   return (
-    <Icon {...props}>
-      <rect x="3" y="3" width="4" height="4" rx="1" />
-      <rect x="10" y="3" width="4" height="4" rx="1" />
-      <rect x="17" y="3" width="4" height="4" rx="1" />
-      <rect x="3" y="10" width="4" height="4" rx="1" />
-      <rect x="10" y="10" width="4" height="4" rx="1" />
-      <rect x="17" y="10" width="4" height="4" rx="1" />
-      <rect x="3" y="17" width="4" height="4" rx="1" />
-      <rect x="10" y="17" width="4" height="4" rx="1" />
-      <rect x="17" y="17" width="4" height="4" rx="1" />
+    <Icon fill="currentColor" stroke="none" {...props}>
+      <circle cx="4" cy="4" r="2" />
+      <circle cx="12" cy="4" r="2" />
+      <circle cx="20" cy="4" r="2" />
+      <circle cx="4" cy="12" r="2" />
+      <circle cx="12" cy="12" r="2" />
+      <circle cx="20" cy="12" r="2" />
+      <circle cx="4" cy="20" r="2" />
+      <circle cx="12" cy="20" r="2" />
+      <circle cx="20" cy="20" r="2" />
     </Icon>
   );
 }
