@@ -371,11 +371,11 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - Right (gap 12px): counter "4 of 43" `14/400/20.02`; `button aria-label="Close"` 40×40 circle, 18px X → returns to Photo Tour.
   - *Measured:* counter ink x1320–1362, y30–40. **Close** = thin X glyph 12×13, centre (1395.5, 36), light stroke (≈1.25px; darkest px `#2A2A2A`), so button box ≈ x1376–1416, consistent with the 24px right padding.
 
-**Image area**: full-screen box with padding `88px 96px`; `img` centred, `object-fit: contain`, fills available space. *Measured (ref-viewer-4, landscape photo):* image box x236–1203, y88–813 = **968×726**, centred at (719.5, 450.5).
+**Image area**: full-screen box with padding `88px 96px`; `img` centred, `object-fit: contain`, fills available space. *Measured (ref-viewer-4, landscape photo):* image box x236–1203, y88–813 = **968×726**, centred at (719.5, 450.5). Its bottom edge half-covers y813 (≈725.5px tall; a 4:3 photo is height-bound) → effective padding **`88px 96px 86.5px`** (pixel-matched: 0.00% diff on the image region).
 - Image changes instantly on navigation (no slide/fade on the img in the reference).
 
 **Arrows**: `button aria-label="Previous"` (left: 20px) and `"Next"` (right: 20px), vertically centred (`top: 50%; transform: translateY(-50%)`), 40×40 circle, bg #fff, `border: 1px solid #222`, 18px chevrons. Hover bg `#F7F7F7`. Transition `background 0.16s, transform 0.08s`.
-- *Measured (ref-viewer-4):* circles at x20–59 and x1380–1419, y431–470 (centre y 450.5). Border 1px (antialiased ring, darkest `#222`). Chevron glyphs 8×15 (prev centre 38.5, next 1401), **heavier stroke (≈2px, solid `#222`) than the header icons**.
+- *Measured (ref-viewer-4):* circles at x20–59 and x1380–1419, y431–470 (centre y ≈450.75, the image area's centre) → `top: calc(50% + 1px)` (Chrome snaps a fractional offset back to y430). Border 1px (antialiased ring, darkest `#222`). Chevron glyphs 8×15 (prev centre 38.5, next 1401), **heavier stroke (≈2px, solid `#222`) than the header icons**.
 - **No wrap-around**: at photo 1 "Previous" is `disabled` with opacity 0.28; at photo 43 "Next" is disabled likewise.
 
 **Keyboard**: `ArrowLeft` / `ArrowRight` = previous / next (respect the ends). `Escape` → closes viewer back to Photo Tour (tour stays open, its scroll position unchanged).

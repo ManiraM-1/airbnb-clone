@@ -24,6 +24,7 @@ import { PhotoTour } from "@/components/overlays/PhotoTour";
 import { PhotoViewer } from "@/components/overlays/PhotoViewer";
 import { MODAL_PHOTO_TOUR, useModalUrl, writeModalUrl } from "@/hooks/useModalUrl";
 import { useToast } from "@/hooks/useToast";
+import { flattenTour, modalItemFor } from "@/lib/photos";
 import type { Listing } from "@/lib/types";
 import styles from "./ListingPage.module.css";
 
@@ -39,7 +40,7 @@ export function ListingPage({ listing }: ListingPageProps) {
   const showToast = useToast();
 
   // Photo tour (SPEC §8): open while the URL says so; `tourStart` is the photo it was opened from.
-  const { modal } = useModalUrl();
+  const { modal, modalItem } = useModalUrl();
   const tourOpen = modal === MODAL_PHOTO_TOUR;
   const [tourStart, setTourStart] = useState<number | null>(null);
   const handleOpenTour = useCallback((photoIndex?: number) => {
@@ -47,10 +48,13 @@ export function ListingPage({ listing }: ListingPageProps) {
     writeModalUrl({ modal: MODAL_PHOTO_TOUR });
   }, []);
   const closeTour = useCallback(() => writeModalUrl({ modal: null, modalItem: null }), []);
-  // Opens the Photo Viewer (SPEC §9), built next.
-  const openViewer = useCallback((index: number) => {
-    void index;
-  }, []);
+
+  // Photo viewer (SPEC §9), stacked on the tour: open while the URL has a valid `modalItem`.
+  const tourPhotos = useMemo(() => flattenTour(listing.tour), [listing.tour]);
+  const viewerItem = tourOpen && modalItem !== null ? modalItem - modalItemFor(0) : null;
+  const viewerIndex = viewerItem !== null && viewerItem >= 0 && viewerItem < tourPhotos.length ? viewerItem : null;
+  const openViewer = useCallback((index: number) => writeModalUrl({ modalItem: modalItemFor(index) }), []);
+  const closeViewer = useCallback(() => writeModalUrl({ modalItem: null }), []);
 
   const heroRef = useRef<HTMLElement>(null);
 
@@ -118,7 +122,7 @@ export function ListingPage({ listing }: ListingPageProps) {
         title={listing.title}
         tour={listing.tour}
       />
-      <PhotoViewer />
+      <PhotoViewer index={viewerIndex} photos={tourPhotos} onNavigate={openViewer} onClose={closeViewer} />
       <AmenitiesModal
         open={amenitiesOpen}
         onClose={closeAmenities}

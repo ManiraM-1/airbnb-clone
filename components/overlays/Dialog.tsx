@@ -15,6 +15,9 @@ export interface DialogProps {
   panelClassName?: string;
   /** When set, renders a backdrop behind the panel that closes the dialog on click. */
   backdropClassName?: string;
+  /** Element to return focus to on close, looked up on open. Defaults to the element focused
+   *  when the dialog opened. */
+  getReturnFocus?: () => HTMLElement | null;
   children: ReactNode;
 }
 
@@ -25,17 +28,28 @@ export interface DialogProps {
  * is inert and the body scroll is locked. Esc closes the top-most dialog only. On close,
  * focus returns to the element that opened it, without scrolling the page.
  */
-export function Dialog({ open, onClose, label, className, panelClassName, backdropClassName, children }: DialogProps) {
+export function Dialog({
+  open,
+  onClose,
+  label,
+  className,
+  panelClassName,
+  backdropClassName,
+  getReturnFocus,
+  children,
+}: DialogProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const requestClose = useEffectEvent(() => onClose());
+  const returnFocusTarget = useEffectEvent(() => getReturnFocus?.() ?? null);
 
   useEffect(() => {
     const root = rootRef.current;
     const panel = panelRef.current;
     if (!open || !root || !panel) return;
 
-    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const opener =
+      returnFocusTarget() ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);
     pushDialog(root);
     (getTabbable(panel)[0] ?? panel).focus({ preventScroll: true });
 

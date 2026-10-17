@@ -141,6 +141,7 @@ export function PhotoTour({ open, startPhoto, onClose, onOpenViewer, title, tour
                         type="button"
                         className={`${styles.photo} ${row.length === 1 ? styles.photoFull : styles.photoHalf}`}
                         aria-label={`${title} image ${photo.index + 1}`}
+                        data-photo-index={photo.index}
                         onClick={() => onOpenViewer(photo.index)}
                       >
                         <Image
