@@ -154,6 +154,7 @@ Starts 48px below gallery (y=715). Section blocks stack; from block 4 on, each h
 ### 5.2 Guest favourite card
 - margin-top 8px. 652×81, `border: 1px solid #DDDDDD`, radius 16px, padding `16px 28px`, flex, align centre, gap 22px.
 - Left group (flex gap 4px): laurel-left SVG 23×36, label "Guest<br>favourite" `15/500/17.25`, centred, laurel-right SVG 23×36.
+  - **Decision:** use `laurel-left.png` / `laurel-right.png` scaled to 23×36 for now; revisit if pixel-match shows a difference.
 - Middle: "One of the most loved homes on Airbnb, according to guests" `14/400/18.2`, width ≈281.
 - Right group (flex gap 22px):
   - "4.95" `20/700/28.6` over 5 stars (10×10 each, gap 2px).
@@ -403,6 +404,8 @@ Every interactive element must be reachable by Tab, in visual order, with the fo
 ---
 
 ## 12. Assets (download, do not hand-draw)
+
+> **Access note:** the reference sits behind Vercel's Security Checkpoint, which blocks scripted access (`npm run fetch-assets`, and Playwright headless *and* headed both get `429`, "Failed to verify your browser"). Do not try to bypass it. Assets were downloaded manually in a browser and placed with `npm run place-assets -- "<folder>"`; reference screenshots are captured manually.
 
 All under `https://airbnb-clone-umber-two.vercel.app` → save to `public/assets/...` with the **same paths**:
 - Font: `/assets/fonts/AirbnbCerealVF.woff2`

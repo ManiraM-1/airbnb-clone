@@ -1,40 +1,118 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Design tokens: SPEC §0 */
+
+@font-face {
+  font-family: "Airbnb Cereal VF";
+  src: url("/assets/fonts/AirbnbCerealVF.woff2") format("woff2-variations"),
+    url("/assets/fonts/AirbnbCerealVF.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Colours */
+  --text: #222222;
+  --text-muted: #717171;
+  --rausch: #ff385c;
+  --border: #dddddd;
+  --divider: #ebebeb;
+  --input-border: #b0b0b0;
+  --bg-subtle: #f7f7f7;
+  --bg-hover: #f2f2f2;
+  --bg-pressed: #ebebeb;
+  --placeholder: #eeeeee;
+  --hairline: rgba(0, 0, 0, 0.08);
+  --white: #ffffff;
+  --reserve-gradient: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+  --reserve-gradient-hover: linear-gradient(to right, #d81b5f 0%, #c31a5b 50%, #bd0463 100%);
+  --map-water: #acd3e6;
+  --map-land: #e9f0e4;
+  --map-park: #cfe3c8;
+  --map-bg: #e8eef0;
+
+  /* Typography */
+  --font-family: "Airbnb Cereal VF", Circular, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", sans-serif;
+
+  /* Shadows */
+  --shadow-search: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --shadow-show-all: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.12);
+  --shadow-map-button: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-map-pin: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --dur-button: 0.15s; /* button hover bg */
+  --dur-press: 0.05s; /* button press transform */
+  --dur-icon-button: 0.16s; /* 40px circle hover bg */
+  --dur-icon-press: 0.08s;
+  --dur-header-link: 0.18s;
+  --dur-image-overlay: 0.2s;
+  --dur-tour: 0.3s;
+  --dur-viewer: 0.25s;
+  --dur-modal-panel: 0.25s;
+  --dur-modal-overlay: 0.2s;
+  --dur-sticky-nav: 0.25s;
+  --dur-toast: 0.2s;
+
+  /* Focus ring */
+  --focus-ring-width: 2px;
+  --focus-ring-color: #222222;
+  --focus-ring-offset: 2px;
+  --focus-ring-offset-hero: 3px;
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-pad: 80px;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.43;
+  color: var(--text);
+  background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
 }
 
 a {
@@ -42,8 +120,59 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Focus (SPEC §0 Focus) */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Reduced motion: improvement over the reference (SPEC §0 Motion) */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-button: 0.01ms;
+    --dur-press: 0.01ms;
+    --dur-icon-button: 0.01ms;
+    --dur-icon-press: 0.01ms;
+    --dur-header-link: 0.01ms;
+    --dur-image-overlay: 0.01ms;
+    --dur-tour: 0.01ms;
+    --dur-viewer: 0.01ms;
+    --dur-modal-panel: 0.01ms;
+    --dur-modal-overlay: 0.01ms;
+    --dur-sticky-nav: 0.01ms;
+    --dur-toast: 0.01ms;
+  }
+
   html {
-    color-scheme: dark;
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
   }
 }
