@@ -79,8 +79,9 @@ test("lists every amenity from the data with an icon; unavailable ones struck th
 
   const unavailable = listing.amenitiesPreview.filter((a) => !a.available).map((a) => a.name);
   for (const name of unavailable) {
+    // The struck-through name carries a visually hidden "Unavailable: " prefix for screen readers.
     const decoration = await d
-      .getByText(name, { exact: true })
+      .getByText(`Unavailable: ${name}`, { exact: true })
       .evaluate((el) => getComputedStyle(el).textDecorationLine);
     expect(decoration).toBe("line-through");
   }
@@ -89,4 +90,14 @@ test("lists every amenity from the data with an icon; unavailable ones struck th
 test("dialog is hidden from the tab order while closed", async ({ page }) => {
   await expect(dialog(page)).toBeHidden();
   await expect(page.getByRole("button", { name: "Close" })).toHaveCount(0);
+});
+
+test("the amenity list can be scrolled with the keyboard", async ({ page }) => {
+  await page.getByRole("button", { name: OPENER }).click();
+  const list = dialog(page).getByRole("region", { name: "What this place offers" });
+  await expect(dialog(page).getByRole("button", { name: "Close" })).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(list).toBeFocused();
+  await page.keyboard.press("PageDown");
+  await expect.poll(() => list.evaluate((el) => el.scrollTop)).toBeGreaterThan(0);
 });

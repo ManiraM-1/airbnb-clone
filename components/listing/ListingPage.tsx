@@ -72,6 +72,13 @@ export function ListingPage({ listing }: ListingPageProps) {
   return (
     <>
       <Header />
+      {/* Fixed at the top of the screen, so it comes first in Tab order (before <main>). */}
+      <StickyNav
+        booking={listing.booking}
+        reviews={listing.reviews}
+        triggerRef={heroRef}
+        onReserve={handleReserve}
+      />
       <main>
         <div className={styles.container}>
           <TitleRow title={listing.title} onShare={handleShare} />
@@ -108,12 +115,6 @@ export function ListingPage({ listing }: ListingPageProps) {
           </div>
         </div>
       </main>
-      <StickyNav
-        booking={listing.booking}
-        reviews={listing.reviews}
-        triggerRef={heroRef}
-        onReserve={handleReserve}
-      />
       <PhotoTour
         open={tourOpen}
         startPhoto={tourStart}

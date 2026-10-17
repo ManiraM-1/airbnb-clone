@@ -147,22 +147,32 @@ h6 {
   outline: none;
 }
 
+/* Visually hidden but read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Reduced motion: improvement over the reference (SPEC §0 Motion) */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --dur-button: 0.01ms;
-    --dur-press: 0.01ms;
-    --dur-icon-button: 0.01ms;
-    --dur-icon-press: 0.01ms;
-    --dur-header-link: 0.01ms;
-    --dur-image-overlay: 0.01ms;
-    --dur-show-all: 0.01ms;
-    --dur-tour: 0.01ms;
-    --dur-viewer: 0.01ms;
-    --dur-modal-panel: 0.01ms;
-    --dur-modal-overlay: 0.01ms;
-    --dur-sticky-nav: 0.01ms;
-    --dur-toast: 0.01ms;
+    --dur-button: 0s;
+    --dur-press: 0s;
+    --dur-icon-button: 0s;
+    --dur-icon-press: 0s;
+    --dur-header-link: 0s;
+    --dur-image-overlay: 0s;
+    --dur-show-all: 0s;
+    --dur-tour: 0s;
+    --dur-viewer: 0s;
+    --dur-modal-panel: 0s;
+    --dur-modal-overlay: 0s;
+    --dur-sticky-nav: 0s;
+    --dur-toast: 0s;
   }
 
   html {

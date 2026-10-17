@@ -97,7 +97,7 @@ export function MoreStays({ stays }: MoreStaysProps) {
           </button>
         </div>
       </div>
-      <ul ref={trackRef} className={styles.track} onScroll={update}>
+      <ul ref={trackRef} className={styles.track} onScroll={update} tabIndex={0} aria-label={LABELS.heading}>
         {stays.map((stay, i) => (
           <li key={`${stay.title}-${i}`} className={styles.card}>
             <Image src={stay.image} alt="" width={208} height={208} unoptimized className={styles.image} />

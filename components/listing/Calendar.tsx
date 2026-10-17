@@ -6,6 +6,7 @@ import type { Listing } from "@/lib/types";
 import styles from "./Calendar.module.css";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
+const WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const LABELS = {
   title: (nights: number, location: string) => `${nights} nights in ${location}`,
   previous: "Previous month",
@@ -54,7 +55,7 @@ export function Calendar({ booking }: CalendarProps) {
               <thead>
                 <tr>
                   {WEEKDAYS.map((d, i) => (
-                    <th key={i} scope="col" className={styles.weekday}>
+                    <th key={i} scope="col" abbr={WEEKDAY_NAMES[i]} aria-label={WEEKDAY_NAMES[i]} className={styles.weekday}>
                       {d}
                     </th>
                   ))}

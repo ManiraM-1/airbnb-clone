@@ -10,7 +10,8 @@
     "fetch-assets": "node scripts/fetch-assets.mjs",
     "place-assets": "node scripts/place-assets.mjs",
     "visual": "playwright test tests/visual.spec.ts",
-    "compare": "node scripts/compare-screenshots.mjs"
+    "compare": "node scripts/compare-screenshots.mjs",
+    "zip": "node scripts/zip.mjs"
   },
   "dependencies": {
     "next": "16.4.2",

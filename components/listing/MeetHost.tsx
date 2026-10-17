@@ -35,7 +35,15 @@ export interface MeetHostProps {
 export function MeetHost({ host, cohosts }: MeetHostProps) {
   const stats = [
     { value: host.reviews, label: LABELS.reviews },
-    { value: `${host.rating}★`, label: LABELS.rating },
+    {
+      value: (
+        <>
+          {host.rating}
+          <span aria-hidden="true">★</span>
+        </>
+      ),
+      label: LABELS.rating,
+    },
     { value: String(host.yearsHosting), label: LABELS.yearsHosting(host.yearsHosting) },
   ];
 

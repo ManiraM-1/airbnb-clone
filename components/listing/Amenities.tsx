@@ -3,6 +3,8 @@ import type { Listing } from "@/lib/types";
 import styles from "./Amenities.module.css";
 
 const HEADING = "What this place offers";
+/** Read before a struck-through amenity, which is otherwise only shown visually. */
+const UNAVAILABLE_LABEL = "Unavailable: ";
 const showAllLabel = (total: number) => `Show all ${total} amenities`;
 
 export interface AmenitiesProps {
@@ -23,7 +25,10 @@ export function Amenities({ amenities, total, onShowAll }: AmenitiesProps) {
           return (
             <li key={item.name} className={`${styles.item} ${item.available ? "" : styles.unavailable}`}>
               <span className={styles.icon}>{ItemIcon ? <ItemIcon size={24} struck={!item.available} /> : null}</span>
-              <span className={styles.name}>{item.name}</span>
+              <span className={styles.name}>
+                {item.available ? null : <span className="visually-hidden">{UNAVAILABLE_LABEL}</span>}
+                {item.name}
+              </span>
             </li>
           );
         })}

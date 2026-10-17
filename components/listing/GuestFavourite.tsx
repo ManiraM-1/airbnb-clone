@@ -7,6 +7,7 @@ import styles from "./GuestFavourite.module.css";
 const LABELS = {
   title: ["Guest", "favourite"],
   reviews: "Reviews",
+  reviewCount: (count: number) => `${count} reviews`,
   stars: (rating: string) => `Rated ${rating} out of 5 stars.`,
 } as const;
 
@@ -40,7 +41,7 @@ export function GuestFavourite({ guestFavourite }: GuestFavouriteProps) {
           <p className={styles.value} aria-hidden="true">
             {rating}
           </p>
-          <span className={styles.srOnly}>{LABELS.stars(rating)}</span>
+          <span className="visually-hidden">{LABELS.stars(rating)}</span>
           <span className={styles.stars} aria-hidden="true">
             {Array.from({ length: STAR_COUNT }, (_, i) => (
               <StarIcon key={i} size={12} className={styles.star} />
@@ -49,8 +50,13 @@ export function GuestFavourite({ guestFavourite }: GuestFavouriteProps) {
         </div>
         <span className={styles.divider} aria-hidden="true" />
         <div className={styles.stat}>
-          <p className={`${styles.value} ${styles.count}`}>{guestFavourite.reviewCount}</p>
-          <p className={styles.label}>{LABELS.reviews}</p>
+          <p className={`${styles.value} ${styles.count}`} aria-hidden="true">
+            {guestFavourite.reviewCount}
+          </p>
+          <p className={styles.label} aria-hidden="true">
+            {LABELS.reviews}
+          </p>
+          <span className="visually-hidden">{LABELS.reviewCount(guestFavourite.reviewCount)}</span>
         </div>
       </div>
     </section>

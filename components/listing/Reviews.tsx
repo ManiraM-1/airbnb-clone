@@ -18,6 +18,7 @@ const LABELS = {
   showLess: "Show less",
   showAll: (count: number) => `Show all ${count} reviews`,
   stars: (n: number) => `Rated ${n} out of 5 stars`,
+  barShare: (share: number) => ` stars, ${Math.round(share * 100)}%`,
 } as const;
 
 const STAR_LEVELS: StarLevel[] = ["5", "4", "3", "2", "1"];
@@ -54,6 +55,7 @@ export function Reviews({ reviews }: ReviewsProps) {
             {STAR_LEVELS.map((level) => (
               <li key={level} className={styles.bar}>
                 <span className={styles.barLabel}>{level}</span>
+                <span className="visually-hidden">{LABELS.barShare(reviews.distribution[level])}</span>
                 <span className={styles.track}>
                   <span className={styles.fill} style={{ width: `${reviews.distribution[level] * 100}%` }} />
                 </span>

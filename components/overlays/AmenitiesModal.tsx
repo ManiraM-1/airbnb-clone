@@ -8,6 +8,8 @@ import styles from "./AmenitiesModal.module.css";
 
 const TITLE = "What this place offers";
 const CLOSE_LABEL = "Close";
+/** Read before a struck-through amenity, which is otherwise only shown visually. */
+const UNAVAILABLE_LABEL = "Unavailable: ";
 
 export interface AmenitiesModalProps {
   open: boolean;
@@ -33,7 +35,8 @@ export function AmenitiesModal({ open, onClose, amenities, unavailable }: Amenit
           <CloseIcon size={16} strokeWidth={1.5} />
         </button>
       </div>
-      <div className={styles.body}>
+      {/* Focusable so the list can be scrolled with arrow keys / PageDown. */}
+      <div className={styles.body} tabIndex={0} role="region" aria-label={TITLE}>
         <h2 className={styles.title}>{TITLE}</h2>
         {amenities.map((group) => (
           <section key={group.category} className={styles.group}>
@@ -45,7 +48,10 @@ export function AmenitiesModal({ open, onClose, amenities, unavailable }: Amenit
                 return (
                   <li key={name} className={`${styles.item} ${isUnavailable ? styles.unavailable : ""}`}>
                     <span className={styles.icon}>{ItemIcon ? <ItemIcon size={24} struck={isUnavailable} /> : null}</span>
-                    <span className={styles.name}>{name}</span>
+                    <span className={styles.name}>
+                      {isUnavailable ? <span className="visually-hidden">{UNAVAILABLE_LABEL}</span> : null}
+                      {name}
+                    </span>
                   </li>
                 );
               })}

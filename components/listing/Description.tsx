@@ -1,10 +1,11 @@
 "use client";
 
-import { useId, useState, type MouseEvent } from "react";
+import { useId, useState } from "react";
 import { ChevronRightIcon } from "@/components/icons/ChevronRightIcon";
 import styles from "./Description.module.css";
 
 const LABELS = {
+  heading: "About this place",
   translated: "Some info has been automatically translated.",
   showOriginal: "Show original",
   showMore: "Show more",
@@ -15,23 +16,24 @@ export interface DescriptionProps {
   description: string;
 }
 
-/** "Show original" does nothing in the reference (SPEC §10.4). */
-function preventNavigation(event: MouseEvent<HTMLAnchorElement>) {
-  event.preventDefault();
-}
-
 // Description: SPEC §5.5.
 export function Description({ description }: DescriptionProps) {
   const [expanded, setExpanded] = useState(false);
   const textId = useId();
+  const headingId = useId();
 
   return (
-    <section className={styles.description}>
+    <section className={styles.description} aria-labelledby={headingId}>
+      {/* No visible heading in the reference; this one is for screen readers. */}
+      <h2 id={headingId} className="visually-hidden">
+        {LABELS.heading}
+      </h2>
       <p className={styles.notice}>
         {LABELS.translated}{" "}
-        <a href="#" className={styles.original} onClick={preventNavigation}>
+        {/* Link-styled, but an action rather than navigation; does nothing in the reference (SPEC §10.4). */}
+        <button type="button" className={styles.original}>
           {LABELS.showOriginal}
-        </a>
+        </button>
       </p>
       <p id={textId} className={`${styles.text} ${expanded ? "" : styles.collapsed}`}>
         {description}

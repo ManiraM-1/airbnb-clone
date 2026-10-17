@@ -49,3 +49,6 @@ next-env.d.ts
 # visual comparison output
 /tests/__output__/
 /tests/__inspect__/
+
+# submission archive
+/submission.zip

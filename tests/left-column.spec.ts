@@ -82,8 +82,8 @@ test("Description toggle works from the keyboard", async ({ page }) => {
   await expect(descriptionToggle(page, "Show more")).toHaveAttribute("aria-expanded", "false");
 });
 
-test("Show original is a no-op link", async ({ page }) => {
-  const link = page.getByRole("link", { name: "Show original" });
+test("Show original is a link-styled no-op button", async ({ page }) => {
+  const link = page.getByRole("button", { name: "Show original" });
   await link.scrollIntoViewIfNeeded();
   const y = await page.evaluate(() => window.scrollY);
   await link.click();
