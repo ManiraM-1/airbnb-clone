@@ -30,6 +30,8 @@ interface StateDefinition {
 export async function loadPage(page: Page): Promise<void> {
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
+  // The reference was captured without a scrollbar; hide ours (test-only) now the page scrolls.
+  await page.addStyleTag({ content: "html { scrollbar-width: none; }" });
   // The reference screenshots have no scrollbar: layout width must be the full 1440px.
   const layoutWidth = await page.evaluate(() => document.documentElement.clientWidth);
   expect(layoutWidth, "layout width (a visible scrollbar would shift everything)").toBe(VIEWPORT.width);

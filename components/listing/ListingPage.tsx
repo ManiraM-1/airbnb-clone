@@ -61,12 +61,12 @@ export function ListingPage({ listing }: ListingPageProps) {
           />
           <div className={styles.grid}>
             <div className={styles.left}>
-              <Overview />
-              <GuestFavourite />
-              <HostRow />
-              <Highlights />
-              <Description />
-              <Sleep />
+              <Overview overview={listing.overview} />
+              <GuestFavourite guestFavourite={listing.guestFavourite} />
+              <HostRow host={listing.host} />
+              <Highlights highlights={listing.highlights} />
+              <Description description={listing.description} />
+              <Sleep sleep={listing.sleep} />
               <Amenities />
               <Calendar />
             </div>

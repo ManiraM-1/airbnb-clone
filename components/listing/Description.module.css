@@ -1,0 +1,60 @@
+/* SPEC §5.5 */
+.description {
+  padding: 26px 0 32px;
+  border-top: 1px solid var(--divider);
+}
+
+/* 52px tall: 16px padding + 20.02px line */
+.notice {
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: var(--bg-subtle);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+}
+
+.original {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.text {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  white-space: pre-line;
+}
+
+/* ≈4 lines; measured (ref-full): the 4th line fades toward white over the last ~36px */
+.collapsed {
+  max-height: 99.2px;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 36px), transparent);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 14px;
+  /* Measured (ref-full): glyphs 2px below a 20px line box, button 21px tall */
+  padding: 1px 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  color: var(--text);
+}
+
+.toggleLabel {
+  text-decoration: underline;
+  /* Measured (ref-full): underline sits lower than the font default */
+  text-underline-offset: 4px;
+}
+
+/* SPEC: 14px icon. Measured glyph is 8×14 with a 2px stroke, which our 24-grid chevron
+   reaches at 18px; the negative margin keeps a 14px layout box. */
+.chevron {
+  margin: -2px;
+}

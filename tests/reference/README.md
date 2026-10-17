@@ -6,6 +6,11 @@ access. Do not request it or try to get around it. These screenshots are the vis
 They were captured manually in Chrome at a **1440×900 viewport, DPR 1, no scrollbar** (layout width
 1440px, so the content column starts at x=160). Coordinates in the images are CSS pixels.
 
+**Text antialiasing differs by capture:** `ref-top.png` shows page content with greyscale text (the
+real on-screen rendering, which we reproduce), while the full-page capture `ref-full.png` has
+colour-subpixel text everywhere. Against `ref-full.png`, text regions therefore keep ~2–3% diff even when
+every glyph is in the right place: compare text **positions** (ink boxes), not text pixels.
+
 | File | State | Our capture (`tests/visual-states.ts`) |
 |---|---|---|
 | `ref-full.png` | Full page, 1440×6256, scrollY 0, no overlay | `full` |

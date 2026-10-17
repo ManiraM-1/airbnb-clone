@@ -1,0 +1,30 @@
+/* SPEC §5.3 */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 26px 0;
+}
+
+.avatar {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.88px;
+}
+
+/* Measured (ref-full): lines 26px apart (name ink y913, meta y939) */
+.meta {
+  margin-top: 3px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+  color: var(--text-muted);
+}

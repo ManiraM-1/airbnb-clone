@@ -150,14 +150,17 @@ Clicking these does nothing (no toast).
 ## 5. Left column (652px)
 
 Starts 48px below gallery (y=715). Section blocks stack; from block 4 on, each has `border-top: 1px solid #EBEBEB`.
+*Measured (ref-full):* dividers at y=981 (Highlights), 1220 (Description), 1473 (Sleep), 1857 (Amenities); Overview, Guest favourite and Host row have none. Ink bands (ref-full y): Overview h2 719–739, details 752–766; card 802–882; host 909–954; highlight titles 1016/1081/1147; notice text 1267–1280; Show more 1423–1436 (underline 1439–1440); Sleep h2 1509–1529, images 1556–1765, titles 1785–1799, subtitles 1809–1819.
 
 ### 5.1 Overview
 - padding-bottom 24px.
 - `h2` "Entire serviced apartment in Candolim, India" `22/500/26`.
-- Line "3 guests · 1 bedroom · 1 bed · 1 bathroom" `16/400/22.88`.
+- Line "3 guests · 1 bedroom · 1 bed · 1 bathroom" `16/400/22.88`, *measured* margin-top 6px.
 
 ### 5.2 Guest favourite card
 - margin-top 8px. 652×81, `border: 1px solid #DDDDDD`, radius 16px, padding `16px 28px`, flex, align centre, gap 22px.
+- **Laurels (measured, supersedes the PNG decision):** the reference laurels are **line art** (four outlined leaves on a stem curling at the bottom, ≈1.8px `#222` strokes; ink 20×35 at x189–208 / 285–304, y825–859), not the shaded PNGs. We draw our own `LaurelIcon` in the 23×36 box; the right one is mirrored and sits 1px closer to the label (`margin-left: -1px`).
+- Stars: glyphs ≈10×9 on a 12px pitch (x631–687, y853–861). "19" ink y826–839 (1px lower than the rating line).
 - Left group (flex gap 4px): laurel-left SVG 23×36, label "Guest<br>favourite" `15/500/17.25`, centred, laurel-right SVG 23×36.
   - **Decision:** use `laurel-left.png` / `laurel-right.png` scaled to 23×36 for now; revisit if pixel-match shows a difference.
 - Middle: "One of the most loved homes on Airbnb, according to guests" `14/400/18.2`, width ≈281.
@@ -169,11 +172,12 @@ Starts 48px below gallery (y=715). Section blocks stack; from block 4 on, each h
 ### 5.3 Host row
 - padding `26px 0`, flex gap 16px, align centre.
 - Avatar 46×46 circle (`/assets/images/avatars/host.jpeg`).
-- "Hosted by Mirashya Homes" `16/500/22.88`; "2 years hosting" `14/400/20.02 #717171`.
+- "Hosted by Mirashya Homes" `16/500/22.88`; "2 years hosting" `14/400/20.02 #717171`. *Measured:* 3px between the lines (ink y913 / 939).
 
 ### 5.4 Highlights
 - padding `32px 0`, flex column, gap 24px.
-- 3 rows; each: icon 24×24, gap 24px, text block: title `14/500/20`, subtitle `14/400/20.02 #717171`.
+- 3 rows; each: icon 24×24, gap 24px, text block: title `14/500/20`, subtitle `14/400/20.02 #717171` (*measured* margin-top 2px; rows 42px tall).
+- *Measured icons* (1.5-unit strokes at 24px, i.e. 1.5px): "Outdoor entertainment" = a **fire pit** (flame with inner flame above an open tray), "Designed for staying cool" = a **ceiling fan** (hub + four teardrop blades with a slight pinwheel twist), "Self check-in" = a **door** in a frame with a second line inside the right edge, handle, floor line. Data keys `outdoor`/`snowflake` are mapped to these glyphs in `components/icons/registry.ts`.
   1. Outdoor entertainment / The pool and alfresco dining are great for summer trips.
   2. Designed for staying cool / Beat the heat with the A/C and ceiling fan.
   3. Self check-in / You can check in with the building staff.
@@ -181,13 +185,13 @@ Starts 48px below gallery (y=715). Section blocks stack; from block 4 on, each h
 ### 5.5 Description
 - padding `26px 0 32px`.
 - Translation notice box: bg `#F7F7F7`, radius 12px, padding `16px 18px`, height 52: "Some info has been automatically translated. " + link "Show original" (`14/500`, underline). Text `14/400/20.02`.
-- `<p>` description: margin-top 8px, `16/400/24`, **collapsed `max-height: 99.2px; overflow: hidden`** (≈4 lines).
-- "Show more" button: margin-top 14px, `16/500`, underline, with 14px chevron-right icon. Click → paragraph expands inline (max-height none), label becomes **"Show less"**. Click again collapses.
+- `<p>` description: margin-top 8px, `16/400/24`, **collapsed `max-height: 99.2px; overflow: hidden`** (≈4 lines). *Measured:* the 4th line **fades** toward white (≈44% → 81% white across it), i.e. a bottom gradient mask of ≈36px; removed when expanded.
+- "Show more" button: margin-top 14px, `16/500`, underline, with 14px chevron-right icon. *Measured:* glyphs 1423–1436, underline 1439–1440 (≈4px below the default), chevron glyph 8×14 with a 2px stroke, 5px after the label. Click → paragraph expands inline (max-height none), label becomes **"Show less"**. Click again collapses.
 
 ### 5.6 Where you'll sleep
 - padding `32px 0`. `h2` "Where you'll sleep" `22/500/26`.
 - Grid 2 × 318px, gap 16px, margin-top 24px.
-- Card: image 318×212, radius 8px, `border: 1px solid rgba(0,0,0,0.08)`, object-fit cover; title `15/500/21.45` margin-top 14px; subtitle `14/400/20.02 #717171`.
+- Card: image 318×212, radius 8px, `border: 1px solid rgba(0,0,0,0.08)`, object-fit cover; title `15/500/21.45` margin-top 14px; subtitle `14/400/20.02 #717171` (*measured* margin-top 2px).
   - Bedroom / 1 double bed. Living room / 1 sofa.
 
 ### 5.7 Amenities (`id="amenities"`)

@@ -1,0 +1,38 @@
+/* SPEC §5.4 */
+.highlights {
+  padding: 32px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+/* Measured (ref-full): rows are 42px tall, subtitle 2px below the title line */
+.text {
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+  color: var(--text-muted);
+}

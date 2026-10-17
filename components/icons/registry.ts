@@ -5,18 +5,18 @@ import { CameraIcon } from "./CameraIcon";
 import { CheckCircleIcon } from "./CheckCircleIcon";
 import { CoAlarmIcon } from "./CoAlarmIcon";
 import { DoorIcon } from "./DoorIcon";
+import { FanIcon } from "./FanIcon";
+import { FirePitIcon } from "./FirePitIcon";
 import { HotTubIcon } from "./HotTubIcon";
 import { KeyIcon } from "./KeyIcon";
 import { KitchenIcon } from "./KitchenIcon";
 import { MapIcon } from "./MapIcon";
 import { MessageIcon } from "./MessageIcon";
-import { OutdoorIcon } from "./OutdoorIcon";
 import { ParkingIcon } from "./ParkingIcon";
 import { PetsIcon } from "./PetsIcon";
 import { PoolIcon } from "./PoolIcon";
 import { ShieldIcon } from "./ShieldIcon";
 import { SmokeAlarmIcon } from "./SmokeAlarmIcon";
-import { SnowflakeIcon } from "./SnowflakeIcon";
 import { SprayIcon } from "./SprayIcon";
 import { TagIcon } from "./TagIcon";
 import { WifiIcon } from "./WifiIcon";
@@ -25,8 +25,10 @@ import { WorkspaceIcon } from "./WorkspaceIcon";
 /** Maps the `icon` keys used in data/listing.json to icon components. */
 const registry: Record<string, ComponentType<IconProps>> = {
   // highlights
-  outdoor: OutdoorIcon,
-  snowflake: SnowflakeIcon,
+  // Data keys kept as-is; glyphs follow the reference: "outdoor" is a fire pit,
+  // "snowflake" (Designed for staying cool) is a ceiling fan.
+  outdoor: FirePitIcon,
+  snowflake: FanIcon,
   door: DoorIcon,
   // amenities
   kitchen: KitchenIcon,

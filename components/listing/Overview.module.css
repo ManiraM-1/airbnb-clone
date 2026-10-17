@@ -1,0 +1,18 @@
+/* SPEC §5.1 */
+.overview {
+  padding-bottom: 24px;
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+/* Measured (ref-full): details glyphs sit 6px lower than h2 + 26px line box */
+.details {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.88px;
+}
