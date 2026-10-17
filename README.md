@@ -150,9 +150,21 @@ sub-pixel text rendering; element positions match to within a pixel.
 - **Visual captures need a headed browser.** `npm run visual` opens Chromium briefly; the headless
   shell renders photos softer and roughly doubles photo diffs.
 
+## Originality
+
+- **No reference code was used.** The reference's source code, JS/CSS bundles, class names and SVG
+  markup were never downloaded, read or reused. Its bot protection also blocked automated access, so no
+  tool fetched it at all.
+- **Everything was written from scratch.** All components, styles and icons were built from the
+  measurements recorded in `SPEC.md` and from the manually captured reference screenshots in
+  `tests/reference/`.
+- **Only content and assets match the reference.** The listing text, photos, avatars, UI images and
+  font are the same as the reference's, because the brief requires identical assets.
+- **The build record is in the repository.** `PROMPTS.md` logs every prompt sent to Claude Code, and the
+  git history shows how the project was built, section by section.
+
 ## Assets and credits
 
 The Airbnb Cereal font and the listing photos, avatars and UI images in `public/assets/` are the
 reference site's assets. They are used only so the clone can be compared with it pixel for pixel, and
-are not covered by any licence of this project. All code, styles and icons were written for this
-project from measurements; none was copied from the reference.
+are not covered by any licence of this project.

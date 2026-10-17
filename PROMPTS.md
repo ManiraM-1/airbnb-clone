@@ -855,3 +855,9 @@ Short report at the end.
 <status>completed</status>
 <summary>Background command "Run full Playwright suite as baseline" completed (exit code 0)</summary>
 </task-notification>
+
+---
+
+### 2026-10-17 09:28:20 UTC · session ac72df29
+
+Add a short "Originality" section to README.md: the reference's source code and bundles were never downloaded or reused (its bot protection also blocked automated access); all components, styles and icons were written from scratch from measurements recorded in SPEC.md and manually captured reference screenshots; only content and assets (listing text, photos, font) match the reference, as the brief requires identical assets. Point to PROMPTS.md and the git history as the build record. Commit it.
