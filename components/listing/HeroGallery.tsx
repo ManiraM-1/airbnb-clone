@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, type Ref } from "react";
 import { GridIcon } from "@/components/icons/GridIcon";
 import { flattenTour, heroTourIndexes } from "@/lib/photos";
 import type { Listing } from "@/lib/types";
@@ -21,14 +21,16 @@ export interface HeroGalleryProps {
   tour: Listing["tour"];
   /** Opens the Photo Tour; with an index, at that photo's room (SPEC §4, §8.4). */
   onOpenTour: (photoIndex?: number) => void;
+  /** The section: the sticky nav shows once its bottom edge scrolls away (SPEC §10.2). */
+  ref?: Ref<HTMLElement>;
 }
 
 // Hero gallery: SPEC §4.
-export function HeroGallery({ title, hero, tour, onOpenTour }: HeroGalleryProps) {
+export function HeroGallery({ title, hero, tour, onOpenTour, ref }: HeroGalleryProps) {
   const tourIndexes = useMemo(() => heroTourIndexes(hero, flattenTour(tour)), [hero, tour]);
 
   return (
-    <section aria-label={SECTION_LABEL} className={styles.gallery}>
+    <section ref={ref} aria-label={SECTION_LABEL} className={styles.gallery}>
       <div className={styles.grid}>
         {hero.map((src, i) => (
           <button

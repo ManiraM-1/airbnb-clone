@@ -90,6 +90,8 @@ export async function waitForStablePosition(page: Page, elementId: string): Prom
 }
 
 export async function openPhotoTour(page: Page): Promise<void> {
+  // The reference's tour scroller has an overlay scrollbar that takes no space; hide ours (test-only).
+  await page.addStyleTag({ content: '[role="dialog"] * { scrollbar-width: none; }' });
   await page.getByRole("button", { name: "Show all photos", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "Photo tour" })).toBeVisible();
 }

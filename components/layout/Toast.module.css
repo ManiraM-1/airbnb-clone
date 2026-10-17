@@ -1,0 +1,37 @@
+/* SPEC §10.3. The live region is always present; only the box inside fades in and out.
+   SPEC's "top 840px" was measured in the hidden state (+20px offset) → visible bottom is 32px. */
+.region {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 14px 22px;
+  background: var(--text);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.02px;
+  color: var(--white);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, 20px);
+  /* Hidden from screen readers once faded out, so a stale message can't be read. */
+  visibility: hidden;
+  transition:
+    opacity var(--dur-toast),
+    transform var(--dur-toast),
+    visibility 0s linear var(--dur-toast);
+}
+
+.toast[data-visible="true"] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
+  transition:
+    opacity var(--dur-toast),
+    transform var(--dur-toast);
+}

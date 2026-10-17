@@ -42,7 +42,7 @@ All values below are **measured from the rendered reference**, not copied from i
 - Variable font, weights 200–900, file `AirbnbCerealVF.woff2` (see §11 Assets).
 - `body`: 14px, color `#222`, bg `#fff`, `-webkit-font-smoothing: antialiased`.
 - Weights used: 400 (body), 500 (headings, labels, buttons), 700 (rating numbers, booking-card labels).
-- Letter-spacing: normal everywhere **except** the big "4.95" in Reviews: `-3px`.
+- Letter-spacing: normal everywhere **except** the big "4.95" in Reviews: `-3px`, and the Photo Tour room titles: `-0.02em` (*measured*, §8.3).
 
 ### Shadows
 | Name | Value |
@@ -337,12 +337,14 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - Below header: a `div` with `overflow-y: auto`, height `calc(100vh - 88px)`. Inner content max-width 1024px, centred, padding `0 24px 96px`.
 - **Category thumbnails** `nav aria-label="Photo categories"`: grid 8 columns × 111.5px, gap 12px (9 items, so "Additional photos" wraps to row 2). *Measured (ref-tour-top):* first thumbnail image at x232–342, y88–192 (111×105): the nav starts flush under the header (no top padding).
   - Each `button aria-label="{room}"`, flex column gap 8px: image 112×105 radius 8px cover; label `14/400 #717171` (wraps).
+  - *Measured (ref-tour-top):* label line-height **19px** ("Additional photos" lines 19px apart); row 2 images at y231.2 → row gap **11.2px** (column gap 12px).
   - Hover: image `transform: scale(1.04); filter: brightness(0.94)`, transition `transform 0.25s cubic-bezier(0.2,0,0,1), filter 0.2s`. (Image needs an overflow-hidden radius-8 wrapper.)
   - Click → smooth-scroll the tour scroller so that room's section top sits 24px below the header. *Verified (ref-tour-bedroom):* Bedroom's first photo top at y≈127.5 → section top 112 = 88 + 24.
 - *Screenshot note:* the tour captures show the browser's own overlay scrollbar thumb (4px wide, `#8B8B8B`, x1436–1439) on the scroller. It is the browser's, not part of the design. Don't style a custom scrollbar, and ignore x≥1432 when diffing tour states.
 - **Room sections** `section id="tour-room-{i}"`, margin-top 40px for the first, padding `16px 0 4px`, grid `458px 458px`, column gap 60px, row gap 20px.
   - Left column: **sticky** (`top: 20px`): room title `32/500/35.2`; features line `16/400/22.4 #717171`, joined with "  ·  " (omit line if no features).
-  - Right column: flex column gap 12px of photo rows. Pattern given by `layout` in data, e.g. "12121": `1` = one full-width photo 458×305; `2` = two photos 223×149 side by side (gap 12px).
+  - *Measured (ref-tour-top / ref-tour-bedroom):* title letter-spacing `-0.02em` ("Living room 1" ink 184px wide), title ink 1px above its line box position (`margin-top: -1px`), features `margin-top: 9px`.
+  - Right column: flex column gap 12px of photo rows. Pattern given by `layout` in data, e.g. "12121": `1` = one full-width photo 458×305 (*measured* 458×305.3, i.e. `aspect-ratio: 3/2`); `2` = two photos 223×149 side by side (gap 12px).
   - Photo `button aria-label="{title} image N"` (N = global index 1–43), radius 8px, overflow hidden, bg `#EEEEEE`; `img` cover, `loading="lazy"`, alt = room name.
   - Photo hover: `img transform: scale(1.04)` (transition `transform 0.4s cubic-bezier(0.2,0,0,1)`) **and** `::after` overlay `rgba(0,0,0,0.08)` (transition `background 0.2s`).
   - Click → open Photo Viewer at that photo.
@@ -398,12 +400,13 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - **Shows once the hero gallery's bottom edge has scrolled above the top of the viewport** (≈ scrollY ≥ 667); hides again above that.
 - Inner: same container as main (max-width 1280, padding `0 80px`), flex space-between.
 - Left `nav aria-label="Listing sections"` (gap 4px): links Photos `#photos`, Amenities `#amenities`, Reviews `#reviews`, Location `#location`. Each `14/500/20.02`, padding `22px 8px`, position relative.
+  - *Measured (ref-sticky-nav):* link text at x168/234/322/395, cap top y27; underline rows y51–52; price line 1 ink y18, line 2 y37 (line boxes 18px + 15.6px, 2px apart); star 11px, 3px before "4.95"; Reserve 93×40 at x1187, y13.
   - **Scroll-spy**: the link of the section currently in view gets an `::after` underline: 2px tall, bg `#222`, width = text width (left/right 8px), at the bottom of the link.
   - Clicking smooth-scrolls (via `html { scroll-behavior: smooth }`).
 - Right group (gap 20px): price block ("₹28,499" `15/500/18` + "for 5 nights" `13/400/15.6`; second line: 11px star + "4.95 · " + "19 reviews" `13/400`); Reserve button 40px tall, padding `0 20px`, radius 999px, gradient, `14/500 #fff`. Reserve click → same toast.
 
 ### 10.3 Toast
-- `div role="status" aria-live="polite"`, fixed, bottom-centred (top 840px at 900px viewport, i.e. `bottom: ~32px`; `left: 50%`).
+- `div role="status" aria-live="polite"`, fixed, bottom-centred (top 840px at 900px viewport, i.e. `bottom: ~32px`; `left: 50%`). The 840px was the hidden state (+20px offset): 820 + 48px box height = bottom **32px** when visible.
 - bg `#222`, text `14/500/20.02 #fff`, radius 8px, padding `14px 22px`.
 - Hidden: `opacity 0; transform: translate(-50%, 20px)`. Visible: `opacity 1; transform: translate(-50%, 0)`. Transition `opacity 0.2s, transform 0.2s`.
 - Stays ~2 seconds, then hides. A new trigger replaces the text and restarts the timer.

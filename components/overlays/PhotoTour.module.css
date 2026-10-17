@@ -1,0 +1,224 @@
+/* SPEC §8.1: full-screen white sheet that fades and rises 28px into place */
+.root {
+  z-index: 300;
+  --dialog-close-delay: var(--dur-tour);
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-tour) var(--ease-standard),
+    transform var(--dur-tour) var(--ease-standard);
+}
+
+.root[data-open="true"] .panel {
+  opacity: 1;
+  transform: none;
+}
+
+/* §8.2 */
+.header {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 88px;
+  padding: 0 32px;
+  background: var(--white);
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--text);
+  transition:
+    background var(--dur-icon-button),
+    transform var(--dur-icon-press);
+}
+
+.iconButton:hover {
+  background: var(--bg-hover);
+}
+
+.iconButton:active {
+  transform: scale(0.92);
+}
+
+/* Measured: box x24–64, 8px left of the header padding */
+.back {
+  margin-left: -8px;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.88px;
+  transform: translateX(-50%);
+}
+
+.actions {
+  display: flex;
+  gap: 2px;
+}
+
+.saved .heart {
+  fill: var(--rausch);
+  stroke: var(--rausch);
+}
+
+/* §8.3 */
+.scroller {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.content {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(8, 111.5px);
+  /* Measured: row 2 images at y231.2 with 19px label lines → 11.2px between rows */
+  gap: 11.2px 12px;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 105px;
+  overflow: hidden;
+  background: var(--placeholder);
+  border-radius: 8px;
+}
+
+.thumbImage {
+  object-fit: cover;
+  transition:
+    transform 0.25s var(--ease-standard),
+    filter var(--dur-image-overlay);
+}
+
+.category:hover .thumbImage {
+  transform: scale(1.04);
+  filter: brightness(0.94);
+}
+
+/* Measured (ref-tour-top): "Additional photos" lines 19px apart */
+.categoryLabel {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  color: var(--text-muted);
+}
+
+.room {
+  display: grid;
+  grid-template-columns: 458px 458px;
+  column-gap: 60px;
+  row-gap: 20px;
+  padding: 16px 0 4px;
+}
+
+.room:first-of-type {
+  margin-top: 40px;
+}
+
+.roomInfo {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+}
+
+/* Measured: "Living room 1" ink 184px wide → letter-spacing -0.02em; ink 1px above where the
+   line box puts it */
+.roomTitle {
+  margin-top: -1px;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 35.2px;
+  letter-spacing: -0.02em;
+}
+
+.features {
+  margin-top: 9px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+  color: var(--text-muted);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: var(--placeholder);
+  border-radius: 8px;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  transition: background var(--dur-image-overlay);
+  pointer-events: none;
+}
+
+.photo:hover::after {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Measured: 458×305.3 (3:2) */
+.photoFull {
+  width: 458px;
+  aspect-ratio: 3 / 2;
+}
+
+.photoHalf {
+  width: 223px;
+  height: 149px;
+}
+
+.photoImage {
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-standard);
+}
+
+.photo:hover .photoImage {
+  transform: scale(1.04);
+}

@@ -29,3 +29,30 @@ export function heroTourIndexes(hero: Listing["hero"], photos: TourPhoto[]): num
 export function modalItemFor(index: number): number {
   return 1000 + index;
 }
+
+export interface TourRoomLayout {
+  roomIndex: number;
+  room: string;
+  features: string[];
+  /** Photo rows from the room's `layout` string: one full-width photo or two side by side. */
+  rows: TourPhoto[][];
+}
+
+/** Splits each room's photos into rows following its `layout` string (SPEC §8.3). */
+export function tourLayout(tour: Listing["tour"]): TourRoomLayout[] {
+  const photos = flattenTour(tour);
+  let next = 0;
+  return tour.map((room, roomIndex) => {
+    const rows = [...room.layout].map((cell) => {
+      const count = cell === "2" ? 2 : 1;
+      const row = photos.slice(next, next + count);
+      next += count;
+      return row;
+    });
+    const placed = rows.flat();
+    if (placed.length !== room.photos.length || placed.some((photo) => photo.roomIndex !== roomIndex)) {
+      throw new Error(`Tour layout "${room.layout}" does not fit the ${room.photos.length} photos of ${room.room}`);
+    }
+    return { roomIndex, room: room.room, features: room.features, rows };
+  });
+}
