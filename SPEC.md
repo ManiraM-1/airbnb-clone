@@ -69,7 +69,7 @@ All values below are **measured from the rendered reference**, not copied from i
 | Toast | `opacity 0.2s, transform 0.2s` |
 | `html` | `scroll-behavior: smooth` |
 
-Respect `prefers-reduced-motion: reduce` by setting all durations to ~0 (improvement over reference; document it).
+Respect `prefers-reduced-motion: reduce` by setting all durations to ~0 (improvement over reference; document it). Use **0s**, not a tiny duration: a non-zero forced duration activates the default `transition-property: all` on every element, so inherited `visibility` briefly stays `hidden` and focus can't move into a just-opened dialog.
 
 ### Focus (keyboard)
 `:focus-visible` on all interactive elements: `outline: 2px solid #222; outline-offset: 2px`. Hero image buttons use `outline-offset: 3px`. No outline on mouse click (`:focus:not(:focus-visible)`).
@@ -198,7 +198,7 @@ Starts 48px below gallery (y=715). Section blocks stack; from block 4 on, each h
 - padding `32px 0`. `h2` "What this place offers".
 - Grid 2 × 322px, **row gap 16px, column gap 8px**, margin-top 24px. 10 items.
 - Item: height 32, padding `4px 0`, flex gap 16px, icon 24×24, text `16/400/22.88`.
-- Last two items ("Carbon monoxide alarm", "Smoke alarm") are **unavailable**: text `#717171` with `text-decoration: line-through`, and their icons are the struck-out variants.
+- Last two items ("Carbon monoxide alarm", "Smoke alarm") are **unavailable**: text `#717171` with `text-decoration: line-through`, and their icons are the struck-out variants. *Measured (ref-full):* icon and text both `#717171`; the strike is a diagonal from top-left to bottom-right across the glyph.
 - Button "Show all 50 amenities": margin-top 24px, 208×48, `16/500`, padding `13px 23px`, radius 12px, `border: 1px solid #222`, bg #fff. Hover bg `#F7F7F7`. Click → Amenities modal (§9).
 
 ### 5.8 Calendar
@@ -209,7 +209,9 @@ Starts 48px below gallery (y=715). Section blocks stack; from block 4 on, each h
   - Month title "October 2026" / "November 2026" `16/500/22.88`, centred.
   - Weekday row (S M T W T F S): 7 equal columns, `12/500/17.16`, centred, margin-top 18px.
   - Day grid: 7 columns × ~42.6px square cells, day number `14/400/20.02` centred (flex).
-  - **Selected range** 18 → 23 Oct: endpoints (18, 23) are 42.6px circles bg `#222` text #fff; days 19–22 have bg `#F2F2F2`, square (no radius). All other days plain.
+  - **Selected range** 18 → 23 Oct: endpoints (18, 23) are 42.6px circles bg `#222` text #fff; days 19–22 have bg `#F2F2F2`, square (no radius). All other days plain. *Measured:* the band runs exactly between the circles (x203–372 in ref-full), 42px tall; it does not extend behind them.
+  - **Blocked days** (*measured, not in the original spec*): Nov 18–24, 29 and 30 are drawn `#DDDDDD` and struck through (same colour). Stored in `data/listing.json → booking.blockedDates`.
+  - *Measured:* the first day row's glyphs sit 35px below the weekday glyphs (weekday row has 6px bottom padding in our build).
   - Days are not interactive.
 - Footer (margin-top 18px, space-between): keyboard icon box 30×22 (`border: 1px solid #B0B0B0`, radius 4px) left; "Clear dates" button right, `14/500` underline (no-op).
 
@@ -230,7 +232,7 @@ Starts 48px below gallery (y=715). Section blocks stack; from block 4 on, each h
 - margin-top 24px. 372 wide, radius 12px, padding `22px 24px 24px`, `border: 1px solid rgba(0,0,0,0.08)`, shadow `0 6px 16px rgba(0,0,0,0.12)`.
 - Price row (flex gap 6px, baseline): "₹28,499" `22/500/31.46` **underlined**; "for 5 nights" `15/400/21.45`.
 - Inputs box: margin-top 18px, `border: 1px solid #B0B0B0`, radius 8px.
-  - Row 1: 2 equal columns (58px tall), padding `10px 12px`; second column has `border-left: 1px solid #B0B0B0`. Label `10/700/14.3` uppercase ("CHECK-IN" / "CHECKOUT"), value `14/400/20.02` ("10/18/2026" / "10/23/2026").
+  - Row 1: 2 equal columns (58px tall), padding `10px 12px`; second column has `border-left: 1px solid #B0B0B0`. Label `10/700/14.3` uppercase ("CHECK-IN" / "CHECKOUT"), value `14/400/20.02` ("10/18/2026" / "10/23/2026"). *Measured:* the value sits 3px lower than in the guests row (label ink y896, value ink y914 in ref-full).
   - Row 2 (57px): `border-top: 1px solid #B0B0B0`, padding `10px 12px`, label "GUESTS", value "2 guests", 16px chevron-down at right.
 - Cancellation box: margin-top 16px, bg `#F7F7F7`, radius 8px, padding 8px, `13/400/18.59 #717171`: "Free cancellation before " + `<b>`"17 October" (`13/500 #222`).
 - **Reserve** button: margin-top 18px, full width, 48px tall, radius 999px, `--reserve-gradient`, text `16/500 #fff`. Hover → `--reserve-gradient-hover`. Transition `filter 0.15s, transform 0.05s`. Click → toast "You won't be charged yet".
@@ -376,8 +378,10 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 ### 10.1 Amenities modal ("Show all 50 amenities")
 - Overlay: fixed inset 0, bg `rgba(0,0,0,0.5)`, `opacity` transition 0.2s. Click on overlay closes.
 - Panel `role="dialog" aria-modal="true" aria-label="What this place offers"`: 780×804, centred (top 48px), bg #fff, radius 12px, overflow hidden. Closed: `transform: translateY(20px)`, hidden. Open: `transform: none`. Transition `transform 0.25s cubic-bezier(0.2,0,0,1)`.
-- Top bar 64px, padding `0 24px`: `button aria-label="Close"` 40×40 circle.
+- Top bar 64px, padding `0 24px`: `button aria-label="Close"` 40×40 circle. *Measured (ref-amenities):* X glyph 12×12 centred (365.5, 79.5) → button box starts 14.5px inside the panel (`margin-left: -10px`).
 - Body: padding `0 48px 48px`, scrolls internally. `h2` "What this place offers" `22/500/31.46`; then categories: `h3` `18/500/25.74` (margin-top 24px), rows padding `16px 0`, `border-bottom: 1px solid #EBEBEB`, flex gap 16px, 24px icon + `16/400/22.88` text.
+  - *Measured (ref-amenities):* h2 ink y130–150 (body padding-top ≈12px), first h3 ink y184–197, row dividers at y265, 321, 378, 435, 492 (57px pitch), second group's h3 ink y528 and its first divider y609 (groups after the first start 28px below the previous divider; 4px between an h3 and its first row). Icons are our own glyphs per item (`components/icons/amenityIcons.tsx`, 1.5px strokes).
+  - Unavailable items (Carbon monoxide alarm, Smoke alarm) are shown struck through as in the preview; *not verified* (no screenshot of that part of the modal).
 - Categories and items: see `data/listing.json → amenitiesAll`.
 - Esc closes. URL does not change.
 

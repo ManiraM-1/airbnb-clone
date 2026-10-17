@@ -1,0 +1,19 @@
+/* Shared dialog frame. Each overlay sets --dialog-close-delay to its closing transition length,
+   so `visibility: hidden` only applies after the fade/slide has been seen. */
+.root {
+  position: fixed;
+  inset: 0;
+  visibility: hidden;
+  transition: visibility 0s linear var(--dialog-close-delay, 0s);
+}
+
+/* No visibility transition when opening: it must be visible immediately so focus can move in.
+   (Even a near-zero transition, as under prefers-reduced-motion, starts at `hidden`.) */
+.root[data-open="true"] {
+  visibility: visible;
+  transition: none;
+}
+
+.panel:focus {
+  outline: none;
+}

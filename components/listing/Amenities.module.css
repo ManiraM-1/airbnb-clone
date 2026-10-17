@@ -1,0 +1,68 @@
+/* SPEC §5.7 */
+.amenities {
+  padding: 32px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 322px 322px;
+  gap: 16px 8px;
+  margin-top: 24px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 32px;
+  padding: 4px 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.88px;
+  white-space: nowrap;
+}
+
+.icon {
+  display: flex;
+  flex: none;
+}
+
+/* Measured (ref-full): icon and text both #717171; text struck through */
+.unavailable {
+  color: var(--text-muted);
+}
+
+.unavailable .name {
+  text-decoration: line-through;
+}
+
+.showAll {
+  height: 48px;
+  margin-top: 24px;
+  padding: 13px 23px;
+  background: var(--white);
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--text);
+  transition:
+    background var(--dur-button),
+    transform var(--dur-press);
+}
+
+.showAll:hover {
+  background: var(--bg-subtle);
+}
+
+.showAll:active {
+  transform: scale(0.96);
+}

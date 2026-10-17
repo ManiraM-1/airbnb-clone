@@ -72,6 +72,8 @@ export interface Booking {
   cancellationBefore: string;
   /** YYYY-MM */
   calendarMonths: string[];
+  /** Unavailable days shown struck through in the calendar, YYYY-MM-DD. */
+  blockedDates: string[];
   discount: Discount;
 }
 

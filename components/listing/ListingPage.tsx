@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { StickyNav } from "@/components/layout/StickyNav";
 import { Toast } from "@/components/layout/Toast";
@@ -27,6 +27,7 @@ import type { Listing } from "@/lib/types";
 import styles from "./ListingPage.module.css";
 
 const SHARE_TOAST = "Share options";
+const RESERVE_TOAST = "You won't be charged yet";
 
 export interface ListingPageProps {
   listing: Listing;
@@ -46,6 +47,15 @@ export function ListingPage({ listing }: ListingPageProps) {
   }, []);
 
   const handleShare = useCallback(() => showToast(SHARE_TOAST), [showToast]);
+  const handleReserve = useCallback(() => showToast(RESERVE_TOAST), [showToast]);
+
+  const [amenitiesOpen, setAmenitiesOpen] = useState(false);
+  const openAmenities = useCallback(() => setAmenitiesOpen(true), []);
+  const closeAmenities = useCallback(() => setAmenitiesOpen(false), []);
+  const unavailableAmenities = useMemo(
+    () => new Set(listing.amenitiesPreview.filter((a) => !a.available).map((a) => a.name)),
+    [listing.amenitiesPreview],
+  );
 
   return (
     <>
@@ -67,10 +77,14 @@ export function ListingPage({ listing }: ListingPageProps) {
               <Highlights highlights={listing.highlights} />
               <Description description={listing.description} />
               <Sleep sleep={listing.sleep} />
-              <Amenities />
-              <Calendar />
+              <Amenities
+                amenities={listing.amenitiesPreview}
+                total={listing.amenitiesTotal}
+                onShowAll={openAmenities}
+              />
+              <Calendar booking={listing.booking} />
             </div>
-            <BookingSidebar />
+            <BookingSidebar booking={listing.booking} onReserve={handleReserve} />
           </div>
           <div className={styles.bottom}>
             <Reviews />
@@ -84,7 +98,12 @@ export function ListingPage({ listing }: ListingPageProps) {
       <StickyNav />
       <PhotoTour />
       <PhotoViewer />
-      <AmenitiesModal />
+      <AmenitiesModal
+        open={amenitiesOpen}
+        onClose={closeAmenities}
+        amenities={listing.amenitiesAll}
+        unavailable={unavailableAmenities}
+      />
       <Toast />
     </>
   );

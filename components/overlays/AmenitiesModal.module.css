@@ -1,0 +1,119 @@
+/* SPEC §10.1 */
+.root {
+  z-index: 200;
+  --dialog-close-delay: var(--dur-modal-panel);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity var(--dur-modal-overlay);
+}
+
+.root[data-open="true"] .backdrop {
+  opacity: 1;
+}
+
+/* 780×804, centred, 48px from the top (measured: x331–1109, y48–853 in ref-amenities.png) */
+.panel {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  width: 780px;
+  height: 804px;
+  max-height: calc(100vh - 96px);
+  margin-left: -390px;
+  overflow: hidden;
+  background: var(--white);
+  border-radius: 12px;
+  transform: translateY(20px);
+  transition: transform var(--dur-modal-panel) var(--ease-standard);
+}
+
+.root[data-open="true"] .panel {
+  transform: none;
+}
+
+.topBar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 64px;
+  padding: 0 24px;
+}
+
+/* Measured: Close glyph centred at x≈365.5 → button box starts 14.5px inside the panel */
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: -8px;
+  border-radius: 50%;
+  color: var(--text);
+  transition:
+    background var(--dur-icon-button),
+    transform var(--dur-icon-press);
+}
+
+.close:hover {
+  background: var(--bg-hover);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 48px 48px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 31.46px;
+}
+
+.group {
+  margin-top: 24px;
+}
+
+/* Measured (ref-amenities): dividers at 265…492, next group's first at 609 */
+.group + .group {
+  margin-top: 29px;
+}
+
+.category {
+  margin-bottom: 4px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25.74px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.88px;
+}
+
+.icon {
+  display: flex;
+  flex: none;
+}
+
+.unavailable {
+  color: var(--text-muted);
+}
+
+.unavailable .name {
+  text-decoration: line-through;
+}

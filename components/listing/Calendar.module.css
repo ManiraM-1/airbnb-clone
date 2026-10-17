@@ -1,0 +1,135 @@
+/* SPEC §5.8 */
+.calendar {
+  padding: 32px 0;
+  border-top: 1px solid var(--divider);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 31.46px;
+}
+
+.range {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+  color: var(--text-muted);
+}
+
+.months {
+  position: relative;
+  display: grid;
+  grid-template-columns: 298px 298px;
+  column-gap: 56px;
+  margin-top: 22px;
+}
+
+/* Visual only: the reference's arrows don't change months */
+.nav {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text);
+  pointer-events: auto;
+  transition: background var(--dur-icon-button);
+}
+
+.navButton:hover {
+  background: var(--bg-hover);
+}
+
+.monthTitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.88px;
+  text-align: center;
+}
+
+.grid {
+  width: 100%;
+  margin-top: 18px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Measured (ref-full): first day row's glyphs sit 35px below the weekday glyphs */
+.weekday {
+  padding: 0 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 17.16px;
+  text-align: center;
+}
+
+.cell {
+  height: 42.6px;
+  padding: 0;
+}
+
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42.6px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+}
+
+/* Selected range 18 → 23 Oct: black circles at the ends, #F2F2F2 band between */
+.endpoint {
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--white);
+}
+
+.inRange {
+  background: var(--bg-hover);
+}
+
+/* Measured (ref-full): unavailable days are #DDDDDD and struck through */
+.blocked {
+  color: var(--border);
+  text-decoration: line-through;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.keyboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 22px;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  color: var(--text);
+}
+
+.clear {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--text);
+  text-decoration: underline;
+}

@@ -91,5 +91,5 @@ test("guest favourite card shows rating, stars and review count", async ({ page 
   const card = page.getByText(listing.guestFavourite.text, { exact: true }).locator("..");
   await expect(card).toContainText(listing.guestFavourite.rating.toFixed(2));
   await expect(card).toContainText(String(listing.guestFavourite.reviewCount));
-  expect(await card.locator("svg").count()).toBe(5);
+  expect(await card.locator('span[aria-hidden="true"] svg').count()).toBe(5); // stars, not laurels
 });
