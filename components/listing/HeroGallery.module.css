@@ -1,0 +1,99 @@
+/* SPEC §4: 1120×494 hero gallery */
+.gallery {
+  position: relative;
+  width: 1120px;
+  height: 494px;
+}
+
+/* No overflow:hidden here, so the 3px-offset focus ring is not clipped;
+   each cell clips itself and only the outer corners are rounded. */
+.grid {
+  display: grid;
+  grid-template-columns: 560px 272px 272px;
+  grid-template-rows: 243px 243px;
+  gap: 8px;
+  height: 100%;
+}
+
+.cell {
+  position: relative;
+  overflow: hidden;
+  background: var(--placeholder);
+  cursor: pointer;
+}
+
+.cell:focus-visible {
+  outline-offset: var(--focus-ring-offset-hero);
+}
+
+.cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  transition: background var(--dur-image-overlay);
+  pointer-events: none;
+}
+
+.cell:hover::after {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.cell1 {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  border-radius: 12px 0 0 12px;
+}
+
+.cell2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.cell3 {
+  grid-column: 3;
+  grid-row: 1;
+  border-top-right-radius: 12px;
+}
+
+.cell4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.cell5 {
+  grid-column: 3;
+  grid-row: 2;
+  border-bottom-right-radius: 12px;
+}
+
+/* "Show all photos": measured in ref-top.png as 143×31 at bottom 24 / right 24 */
+.showAll {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 15px 7px;
+  background: var(--white);
+  border: 1px solid var(--text);
+  border-radius: 8px;
+  box-shadow: var(--shadow-show-all);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--text);
+  white-space: nowrap;
+  transition:
+    transform var(--dur-show-all),
+    background var(--dur-button);
+}
+
+.showAll:hover {
+  background: var(--bg-subtle);
+}

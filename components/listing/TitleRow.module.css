@@ -1,0 +1,57 @@
+/* SPEC §3: title row, 84px tall */
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 32px 0 18px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 30px;
+  color: var(--text);
+}
+
+.actions {
+  display: flex;
+  flex: none;
+  gap: 2px;
+}
+
+/* 34px tall: 8px padding + 18px content */
+.action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--text);
+  transition:
+    background var(--dur-button),
+    transform var(--dur-press);
+}
+
+.action:hover {
+  background: var(--bg-hover);
+}
+
+.action:active {
+  transform: scale(0.96);
+}
+
+.label {
+  text-decoration: underline;
+  /* ref-top.png: underline sits ~1.5px below the font's default position */
+  text-underline-offset: 2px;
+}
+
+.saved .heart {
+  fill: var(--rausch);
+  stroke: var(--rausch);
+}

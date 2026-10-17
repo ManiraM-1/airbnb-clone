@@ -1,18 +1,12 @@
 import { Icon, type IconProps } from "./Icon";
 
+const CENTRES = [4.5, 12, 19.5];
+
 /** 3×3 dot grid ("Show all photos"). Filled dots, no stroke. */
 export function GridIcon(props: IconProps) {
   return (
     <Icon fill="currentColor" stroke="none" {...props}>
-      <circle cx="4" cy="4" r="2" />
-      <circle cx="12" cy="4" r="2" />
-      <circle cx="20" cy="4" r="2" />
-      <circle cx="4" cy="12" r="2" />
-      <circle cx="12" cy="12" r="2" />
-      <circle cx="20" cy="12" r="2" />
-      <circle cx="4" cy="20" r="2" />
-      <circle cx="12" cy="20" r="2" />
-      <circle cx="20" cy="20" r="2" />
+      {CENTRES.flatMap((cy) => CENTRES.map((cx) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="2" />))}
     </Icon>
   );
 }

@@ -49,6 +49,7 @@
   --dur-icon-press: 0.08s;
   --dur-header-link: 0.18s;
   --dur-image-overlay: 0.2s;
+  --dur-show-all: 0.1s; /* "Show all photos" transform */
   --dur-tour: 0.3s;
   --dur-viewer: 0.25s;
   --dur-modal-panel: 0.25s;
@@ -154,6 +155,7 @@ h6 {
     --dur-icon-press: 0.01ms;
     --dur-header-link: 0.01ms;
     --dur-image-overlay: 0.01ms;
+    --dur-show-all: 0.01ms;
     --dur-tour: 0.01ms;
     --dur-viewer: 0.01ms;
     --dur-modal-panel: 0.01ms;

@@ -15,7 +15,7 @@ The reference site cannot be opened by any tool (Vercel Security Checkpoint, do 
    - Code wrong → fix it (or delegate to `component-builder`).
    - SPEC missing/wrong → ask `ui-inspector` to measure it from the screenshots and update SPEC.md, then fix code.
    - Can't be determined from existing screenshots (e.g. hover state) → ask the user for the one specific screenshot needed (state, scroll, hovered element, file name `tests/reference/ref-<state>.png`). Don't guess.
-5. **Repeat** steps 2–4 until the diff for the section is visually clean (only anti-aliasing / image-resampling noise) and all behaviours match SPEC.md.
+5. **Repeat** steps 2–4 until the section is visually indistinguishable at 100% zoom and any remaining diff is explained by photo resampling or sub-pixel line rendering, and all behaviours match SPEC.md. **At most two fix-and-compare rounds per section**; then list what's left over and move on.
 6. If the section is interactive or an overlay, run the `a11y-reviewer` agent on it.
 7. **Report**: what was fixed, the final diff % for the region, screenshots still needed from the user, and anything intentionally different (e.g. our proper focus trap, SPEC §11).
 

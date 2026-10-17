@@ -17,7 +17,9 @@ They were captured manually in Chrome at a **1440×900 viewport, DPR 1, no scrol
 | `ref-amenities.png` | Amenities modal open, page at scrollY 0 | `amenities` |
 
 Workflow:
-1. `npm run visual` captures our build into `tests/__output__/{state}.png` (git-ignored).
+1. `npm run visual` captures our build into `tests/__output__/{state}.png` (git-ignored). It runs
+   **headed** Chromium (a window opens briefly): the headless shell renders photos visibly softer than
+   the reference's Chrome, which inflated photo diffs ~2×.
 2. `npm run compare -- <state|all> [--region x,y,w,h]` writes pixelmatch diffs (and crops when a
    region is given) to `tests/__output__/`.
 3. `node scripts/inspect-png.mjs bbox|pixel|crop ...` measures sizes, positions and colours in any

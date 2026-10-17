@@ -1,0 +1,137 @@
+/* SPEC §2: top bar (not sticky) */
+.header {
+  position: relative;
+  z-index: 50;
+  background: var(--white);
+  padding: 0 80px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  max-width: 1760px;
+  height: 88px;
+  margin: 0 auto;
+}
+
+/* Left: logo 103×32 */
+.logo {
+  justify-self: start;
+  display: block;
+  width: 103px;
+  height: 32px;
+  color: var(--rausch);
+}
+
+/* Centre: search pill 403×48 */
+.search {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  box-shadow: var(--shadow-search);
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  flex: none;
+  height: 48px;
+  /* 2px top padding: labels sit 1px below centre in ref-top.png */
+  padding: 2px 16px 0;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* 149px wide: the content (16 + 48 + 8 + label + 16) is a few px wider, and the reference
+   lets it overflow on the left (measured: house image starts ~5px inside the padding). */
+.where {
+  width: 149px;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.house {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  /* cancels the 1px label nudge from .searchButton's padding */
+  margin-top: -2px;
+}
+
+.when {
+  width: 88px;
+  justify-content: center;
+}
+
+.who {
+  width: 106px;
+  justify-content: center;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.divider {
+  flex: none;
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: var(--rausch);
+  color: var(--white);
+}
+
+/* Right: nav 221×44 */
+.nav {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hostLink {
+  padding: 12px 14px;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--text);
+  white-space: nowrap;
+  transition: background var(--dur-header-link);
+}
+
+.hostLink:hover {
+  background: var(--bg-subtle);
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  color: var(--text);
+  transition:
+    background var(--dur-icon-button),
+    transform var(--dur-icon-press);
+}

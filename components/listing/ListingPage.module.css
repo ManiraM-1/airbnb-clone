@@ -3,6 +3,11 @@
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--container-pad);
+  /* Own compositing layer: the reference renders this content with greyscale text
+     antialiasing (header text stays subpixel); this matches ref-top.png exactly.
+     `opacity`, not `transform`: a transform hint makes GPU Chrome rasterise the photos
+     softer, and it would also become the containing block for position: fixed children. */
+  will-change: opacity;
 }
 
 /* SPEC §5 / §6: left 652 | gap 96 | right 372, starting 48px below the gallery */

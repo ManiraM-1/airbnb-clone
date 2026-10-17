@@ -92,6 +92,8 @@ Respect `prefers-reduced-motion: reduce` by setting all durations to ~0 (improve
 ```
 Page total height ≈ 6256px. No footer.
 
+*Measured (ref-top):* text inside `main` renders with **greyscale** antialiasing while header text is subpixel, i.e. the content container is on its own compositing layer. Reproduced with `will-change: opacity` on the container (h1 diff 1.49% → 0.00%). Not `transform`: in GPU Chrome that hint rasterises the photos softer than the reference.
+
 ---
 
 ## 2. Header (top bar)
@@ -107,6 +109,7 @@ Page total height ≈ 6256px. No footer.
 3. Button "Anytime": 88×48, `14/500 #222`.
 4. Divider 1×24.
 5. Button "Add guests": 106×48, `14/400 #717171`.
+   - *Measured (ref-top):* all three labels' ink sits 1px below the button's vertical centre (ink y39–52 in a y20–67 pill); the house image is centred (ink y31–55). Label x: Anywhere 594, Anytime 694, Add guests 783.
 6. Search button `aria-label="Search"`: 32×32 circle, bg `#FF385C`, margin-left 8px, white magnifier icon.
 
 **Right: `<nav>`** flex, gap 8px, 221×44:
@@ -124,6 +127,7 @@ Clicking these does nothing (no toast).
 - `h1`: "Romantic Jacuzzi 1BHK Candolim | Mirashya UG10", `26/500/30 #222`.
 - Right: two buttons, gap 2px, each 34px tall, padding `8px 10px`, radius 8px, gap 8px, `14/500 #222`:
   - **Share**: 16px share icon + underlined label "Share". Click → toast "Share options" (§10).
+  - *Measured (ref-top):* icon strokes are **1px** at 16px (1.5 units in a 24-unit icon). Share = arrow (shaft centre x1140, tip y≈131.5, 45° head ending x1135/1145) out of an open tray with **square corners** (walls x1134/1145 from y≈139.5, bottom on y144–145). Heart fills the full 16px width (ink 16×14, x1215–1230, y131–144). Underline ≈1px, about 1.5px below the font default (rows 145–146; `text-underline-offset: 2px` is the closest whole-pixel match).
   - **Save**: 16px heart outline + underlined "Save". Click toggles to **"Saved"** with the heart **filled `#FF385C`**; click again reverts. No toast.
   - Hover bg `#F2F2F2`. Transition `background 0.15s, transform 0.05s`.
 
@@ -139,7 +143,7 @@ Clicking these does nothing (no toast).
 - **Click any hero image** → opens Photo Tour scrolled so that image's **room section** sits at the top of the tour scroller (§8.3).
 - Image order (from `data/listing.json → hero`): 1 `2367476f…`, 2 `090d8b0b…`, 3 `9be71047…`, 4 `67c61c6f…`, 5 `c904e1ab…`.
 
-**"Show all photos" button**: position absolute, bottom 23px / right 23px of the gallery (box @1106,612 143×32). bg #fff, `border: 1px solid #222`, radius 8px, padding `7px 15px`, shadow `0 2px 8px rgba(0,0,0,0.15)`, gap 8px, 15px **3×3 dot-grid** icon (filled dots, not squares; verified in ref-top) + text `12/500/16 #222`. Hover bg `#F7F7F7`. Transition `transform 0.1s, background 0.15s`. Click → opens Photo Tour at top.
+**"Show all photos" button**: position absolute, **bottom 24px / right 24px** of the gallery (*measured in ref-top:* box x1113–1255, y612–642 = **143×31**; the earlier "23px / @1106,612 / 143×32" was wrong). Text ink y622–632; icon ink 12×11 (dots on a 7.5-unit pitch in a 24-unit box). bg #fff, `border: 1px solid #222`, radius 8px, padding `7px 15px`, shadow `0 2px 8px rgba(0,0,0,0.15)`, gap 8px, 15px **3×3 dot-grid** icon (filled dots, not squares; verified in ref-top) + text `12/500/16 #222`. Hover bg `#F7F7F7`. Transition `transform 0.1s, background 0.15s`. Click → opens Photo Tour at top.
 
 ---
 
@@ -311,7 +315,7 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 - 88px tall, padding `0 32px`, bg #fff, flex space-between, align centre.
 - Left: `button aria-label="Back"` 40×40 circle, 18px chevron-left. Hover bg `#F2F2F2`. Click → close tour.
   - *Measured (ref-tour-top / ref-tour-bedroom):* thin chevron-left glyph 8×15, centre (42.5, 44), stroke visibly lighter than the viewer's arrow chevrons (≈1.25px; darkest px `#2B2B2B`). No visible bg at rest.
-  - *Inferred:* with `padding 0 32px` the button centre would be x=52, but the glyph centres at x≈42.5, so the Back button sits ≈8px further left (button box ≈ x22–62, e.g. `margin-left: -8px`). The viewer's left button shows the same −8px offset (§9). Confirm with a hover screenshot (bg circle visible).
+  - *Measured (confirmed by the user's direct measurement of the reference):* the Back button box starts at **x=24**, i.e. 8px left of the 32px header padding → **`margin-left: -8px`** (box x24–64). The viewer's left button has the same −8px offset (§9).
 - Centre (absolute, horizontally centred): `h2` "Photo tour" `16/500/22.88`. *Measured:* text centred at x=720, y≈44.
 - Right (gap 2px): `button aria-label="Share"` and `aria-label="Save"`, 40×40 circles, 18px icons.
   - *Measured:* **Share** = open-top tray with an upward arrow out of it (glyph 14×16, centre 1345.5, 43.5). **Save** = outline heart (glyph 18×16, centre 1387.5, 43.5). Centres 42px apart (40 + 2 gap); Save's button right edge ≈1407.5, matching the 32px right padding. Both `#222`, line weight ≈1.5px, no bg at rest.
@@ -347,7 +351,7 @@ Each `section` has padding `48px 0` and (except the first) `border-top: 1px soli
 **Header** (absolute top, 72px, padding `0 24px`):
 - Left: `button aria-label="Show all photos"` 40×40 circle, 18px **3×3 dot-grid icon** (same icon as the page's "Show all photos" button, §4), **not a chevron** → returns to Photo Tour.
   - *Measured (ref-viewer-4):* glyph 15×15, nine filled dots ≈3px on a ≈6px pitch, `#222`, centre (36, 36). No visible bg at rest.
-  - *Inferred:* with `padding 0 24px` the centre would be x=44. At x=36 the button box is ≈ x16–56, i.e. ≈8px further left (same offset as the tour's Back button, §8.2). Confirm with a hover screenshot.
+  - *Measured (confirmed by the user's direct measurement of the reference):* the button box starts at **x=16**, i.e. 8px left of the 24px header padding → **`margin-left: -8px`** (box x16–56). Same offset as the tour's Back button (§8.2).
 - Centre (absolute): current room name `16/500/22.88`. *Measured:* centred at x=720, y≈36.
 - Right (gap 12px): counter "4 of 43" `14/400/20.02`; `button aria-label="Close"` 40×40 circle, 18px X → returns to Photo Tour.
   - *Measured:* counter ink x1320–1362, y30–40. **Close** = thin X glyph 12×13, centre (1395.5, 36), light stroke (≈1.25px; darkest px `#2A2A2A`), so button box ≈ x1376–1416, consistent with the 24px right padding.
