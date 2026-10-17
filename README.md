@@ -58,7 +58,7 @@ tests/            Playwright specs per section/overlay, visual capture states
   reference/      the 7 manual reference screenshots + README (capture conditions)
 scripts/          compare-screenshots, compare-bands, inspect-png, place-assets, fetch-assets, zip
 .claude/          subagents, pixel-match skill, prompt-logging hook, settings
-docs/             architecture diagram
+docs/             architecture diagram (PNG + Excalidraw source)
 CLAUDE.md         project rules for Claude Code
 SPEC.md           measured specification (source of truth)
 PROMPTS.md        every prompt sent during the build, logged automatically
@@ -149,6 +149,34 @@ sub-pixel text rendering; element positions match to within a pixel.
 - **Static data.** Content comes from `data/listing.json`; there is no real backend, auth or booking.
 - **Visual captures need a headed browser.** `npm run visual` opens Chromium briefly; the headless
   shell renders photos softer and roughly doubles photo diffs.
+
+## Architecture
+
+![Production architecture for a vacation-rental marketplace](docs/architecture.png)
+
+[`docs/architecture.png`](docs/architecture.png) (editable source:
+[`docs/architecture.excalidraw`](docs/architecture.excalidraw)) shows how this page would sit in a
+production-scale vacation-rental marketplace. Reads (browsing, search) far outnumber writes (bookings),
+so the design caches reads at the edge, scales stateless tiers horizontally and keeps bookings strongly
+consistent:
+
+- **Edge caching + ISR for read-heavy traffic.** A CDN behind DNS/WAF serves static assets, resized
+  images and listing pages pre-rendered by Next.js ISR; pages are revalidated when a listing changes,
+  so most requests never reach the origin.
+- **Stateless services autoscaled on Kubernetes.** Listing, search, availability, booking, payments,
+  reviews and messaging run as stateless containers behind an API gateway / BFF and scale
+  independently.
+- **OpenSearch for geo search, fed by Kafka events.** Services publish events such as
+  `listing.updated` and `booking.created` to Kafka; consumers index them into region-sharded OpenSearch
+  (geo search, filters, facets) and stream them to the data warehouse.
+- **No double-booking.** A Postgres exclusion constraint on `(listing_id, date range)` makes
+  overlapping bookings impossible at the database level, and short-lived Redis holds (TTL) reserve
+  dates while a guest checks out.
+- **S3 + image pipeline behind the CDN.** Original photos land in S3, get resized and converted to
+  WebP/AVIF, and are served through the CDN.
+- **CI/CD with Playwright visual tests and canary deploys.** Each change runs lint, type check, unit
+  and Playwright visual tests, ships as a container through GitOps, and rolls out as a canary with
+  instant rollback.
 
 ## Originality
 

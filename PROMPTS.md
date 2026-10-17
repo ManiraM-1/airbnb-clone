@@ -861,3 +861,9 @@ Short report at the end.
 ### 2026-10-17 09:28:20 UTC · session ac72df29
 
 Add a short "Originality" section to README.md: the reference's source code and bundles were never downloaded or reused (its bot protection also blocked automated access); all components, styles and icons were written from scratch from measurements recorded in SPEC.md and manually captured reference screenshots; only content and assets (listing text, photos, font) match the reference, as the brief requires identical assets. Point to PROMPTS.md and the git history as the build record. Commit it.
+
+---
+
+### 2026-10-17 12:38:55 UTC · session ac72df29
+
+I added docs/architecture.png and docs/architecture.excalidraw (architecture diagram for a production-scale vacation-rental marketplace). Add a short "Architecture" section to README.md that links to it and summarises the scaling strategy in 5–6 bullets: edge caching + ISR for read-heavy traffic, stateless services autoscaled on Kubernetes, OpenSearch for geo search fed by Kafka events, Postgres exclusion constraint + Redis holds to prevent double-booking, S3 + image pipeline behind the CDN, and CI/CD with Playwright visual tests and canary deploys. Then run npm run zip, check the zip contains docs/, and commit.
